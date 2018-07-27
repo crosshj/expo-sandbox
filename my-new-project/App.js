@@ -58,6 +58,73 @@ function Popup({ modalVisible, selectedItem, setModalVisible }){
   );
 }
 
+function mapNameToAssetLocation(name){
+  var location = undefined;
+  switch (name) {
+    case 'Jollibee': {
+      location = require('./assets/Jollibee.png');
+      break;
+    }
+    case 'Goodwill': {
+      location = require('./assets/Goodwill.png');
+      break;
+    }
+    case 'Game Stop': {
+      location = require('./assets/gamestop-logo.png');
+      break;
+    }
+    case 'Red Ribbon': {
+      location = require('./assets/red-ribbon-logo.png');
+      break;
+    }
+    case 'BonChon': {
+      location = require('./assets/th.jpg');
+      break;
+    }
+    case 'KFC': {
+      location = require('./assets/KFC.png');
+      break;
+    }
+    case 'Hibachi': {
+      location = require('./assets/Hibachi.png');
+      break;
+    }
+    case 'Dollar Tree': {
+      location = require('./assets/dtree.jpg');
+      break;
+    }
+    case 'Star City': {
+      location = require('./assets/star.jpg');
+      break;
+    }
+    case 'Thai House': {
+      location = require('./assets/thai.png');
+      break;
+    }
+    case 'Manila Mart': {
+      location = require('./assets/manila.png');
+      break;
+    }
+    case 'Mellow Mushroom': {
+      location = require('./assets/mellow.jpg');
+      break;
+    }
+    case 'Shakeys': {
+      location = require('./assets/shakeys.jpg');
+      break;
+    }
+    case 'Goldilocks': {
+      location = require('./assets/gold.jpg');
+      break;
+    }
+    default: {
+      location = require('./assets/appDefault.png');
+      break;
+    }
+  }
+  return location;
+}
+
 export default class App extends React.Component {
   state = {
     isReady: false,
@@ -121,7 +188,7 @@ export default class App extends React.Component {
                   onPress={()=>this.setModalVisible(true, item)}
                 >
                   <Thumbnail square scaleX={1.1} scaleY={1.1}
-                    source={require('./assets/appDefault.png')}
+                    source={mapNameToAssetLocation(item.name)}
                     style={{ marginLeft: 5 }}
                   />
                 </CardItem>
@@ -173,6 +240,20 @@ export default class App extends React.Component {
       require('./assets/icon.png'),
       require('./assets/splash.png'),
       require('./assets/appDefault.png'),
+      require('./assets/Jollibee.png'),
+      require('./assets/Goodwill.png'),
+      require('./assets/gamestop-logo.png'),
+      require('./assets/red-ribbon-logo.png'),
+      require('./assets/th.jpg'),
+      require('./assets/KFC.png'),
+      require('./assets/Hibachi.png'),
+      require('./assets/dtree.jpg'),
+      require('./assets/star.jpg'),
+      require('./assets/thai.png'),
+      require('./assets/manila.png'),
+      require('./assets/mellow.jpg'),
+      require('./assets/shakeys.jpg'),
+      require('./assets/gold.jpg'),
     ];
 
     const cacheImages = images.map((image) => {
