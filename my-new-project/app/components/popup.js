@@ -10,6 +10,15 @@ import {
   H3, Left, Right, Body, Footer, FooterTab
 } from 'native-base';
 
+const items = [
+  { name: 'Eggs', amount: '2.99' },
+  { name: 'Bacon', amount: '6.23' },
+  { name: 'Grits', amount: '1.99' },
+  { name: 'Sausage', amount: '12.37' },
+  { name: 'Magazine', amount: '9.89' },
+  { name: 'Pillow', amount: '19.99' },
+  { name: 'Diapers', amount: '29.23' },
+];
 
 function Popup({ modalVisible, selectedItem, setModalVisible }){
     if(!modalVisible){
@@ -20,26 +29,40 @@ function Popup({ modalVisible, selectedItem, setModalVisible }){
         backdropOpacity={0.5}
         isVisible={modalVisible}
       >
-        <Card style={{paddingTop: 20, height: '95%'}}>
+        <Card style={{paddingTop: 0, height: '98%'}}>
           { !selectedItem
             ? <View><Text>No Item Selected</Text></View>
             : <CardItem cardBody style={{
               justifyContent: 'space-between', flexDirection: 'column',
-              height: '100%', width: '100%'
+              height: '100%', width: '100%',
             }}>
-                {/* <Image style={styles.modalImage} source={{uri: this.state.selectedItem.owner.avatar_url}}  /> */}
-                <CardItem header bordered style={{ width: '100%'}}>
-                  <Text>{selectedItem.name}</Text>
+                {/* <CardItem header style={styles.header}>
+                  <Text style={{ color: 'white' }}>{selectedItem.name}</Text>
+                </CardItem> */}
+                <CardItem style={{ flexDirection: 'column'}}>
+                    <Thumbnail square scaleX={1.3} scaleY={1.3}
+                      source={require('../../assets/appDefault.png')}
+                      style={{marginTop: 20, marginBottom: 10}}
+                    />
+                    <Text style={{fontSize: 25}}>{selectedItem.name}</Text>
+                    <Text note style={{fontSize: 40}}>
+                      ${items.reduce((all, one)=>all+Number(one.amount), 0).toFixed(2)}
+                    </Text>
+                    <Text>08/16/2018 12:03pm</Text>
                 </CardItem>
-                <Text>
-                    transaction details go here - HERE
-                </Text>
-                <Button danger style={{alignSelf: 'center', marginBottom: 20 }} onPress={() => {
+                <List dataArray={items} style={{padding: 0, margin: 0, width: '100%'}} renderRow={
+                    (item) =>
+                      <ListItem style={{marginLeft: 20, marginRight: 20,
+                        justifyContent: 'space-between', padding: 5
+                      }}>
+                        <Text>{item.name}</Text>
+                        <Text>${item.amount}</Text>
+                      </ListItem>
+                }/>
+                <Button style={{alignSelf: 'center', marginBottom: 20, marginTop: 20, backgroundColor: '#62bc26' }} onPress={() => {
                   setModalVisible(!modalVisible, selectedItem)
                 }}>
-                    <Text>
-                      Go Back
-                    </Text>
+                    <Text>OKAY</Text>
                 </Button>
               </CardItem>
           }
@@ -47,5 +70,14 @@ function Popup({ modalVisible, selectedItem, setModalVisible }){
       </Modal>
     );
   }
+
+const styles = StyleSheet.create({
+    header: {
+      width: '100%',
+      marginTop: 0,
+      marginBottom: 'auto',
+      backgroundColor: '#62bc26'
+    }
+});
 
   module.exports = Popup;
