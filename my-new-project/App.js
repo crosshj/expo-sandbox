@@ -17,8 +17,8 @@ const delay = (shouldReject, timeout = 2000) =>
     setTimeout(shouldReject ? rej : res, timeout));
 
 const vendorNames = [
-  'McDonalds', 'Burger King', 'Wendys', 'BP', 'Shell', 'Walmart', 'Target',
-  'Kroger', 'Publix', 'Tin Drum', 'Chipotle', '5 Guys', 'Radio Shack', 'Frys Electronics'
+  'Goodwill', 'Game Stop', 'Jollibee', 'Red Ribbon', 'BonChon', 'KFC', 'Hibachi',
+  'Dollar Tree', 'Star City', 'Thai House', 'Manila Mart', 'Mellow Mushroom', 'Shakeys', 'Goldilocks'
 ];
 
 function Popup({ modalVisible, selectedItem, setModalVisible }){
