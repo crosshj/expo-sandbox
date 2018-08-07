@@ -7,44 +7,58 @@ import Modal from "react-native-modal";
 import {
   Spinner, Text, View, Content, Container, Header, Title, Button, Icon,
   InputGroup, Input, ListItem, List, Radio, CheckBox, Thumbnail, Card, CardItem,
-  H3, Left, Right, Body, Footer, FooterTab
+  H3, Left, Right, Body, Footer, FooterTab, Form, Item
 } from 'native-base';
 
-function Logo (){
+function Logo ({style}){
   return (
-    <Text>Ledjr</Text>
+    <Text style={style}>Ledjr</Text>
   );
 }
 
 function Login({ handler }){
   return (
     <Container style={styles.container}>
-      <Container style={styles.content}>
-        <Logo  style={styles.logo}/>
-        <Input style={styles.formField}>
-          Username
-        </Input>
-        <Input style={styles.formField}>
-          Password
-        </Input>
-        <Button style={styles.formButton}>
-          <Text>Sign In</Text>
-        </Button>
-        <Text style={styles.formLink}>Create an account</Text>
-      </Container>
+      <Content />
+      <Content style={styles.content}>
+        <Form>
+          <Item>
+            <Logo style={styles.logo}/>
+          </Item>
+          <Item underline={false}>
+            <Input placeholder='Username' />
+          </Item>
+          <Item underline='false'>
+            <Input placeholder='Password' />
+          </Item>
+          <Item>
+            <Button style={styles.formButton}>
+              <Text>Sign In</Text>
+            </Button>
+          </Item>
+          <Item>
+            <Text style={styles.formLink}>Create an account</Text>
+          </Item>
+        </Form>
+      </Content>
+      <Content />
     </Container>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'red',
-    justifyContent: 'center',
+    backgroundColor: "#62bc26",
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   content: {
-    marginTop: 'auto',
-    marginBottom: 'auto'
+    backgroundColor: 'white',
+    minWidth: '80%'
+  },
+  logo: {
+    textAlign: 'center',
+    alignSelf: 'center'
   }
 });
 
