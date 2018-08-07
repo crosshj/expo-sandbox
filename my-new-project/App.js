@@ -14,6 +14,7 @@ import {
 import Popup from './app/components/popup';
 import ListView from './app/components/listview';
 import Header from './app/components/header';
+import Login from './app/components/login';
 
 const delay = (shouldReject, timeout = 2000) =>
   new Promise((res, rej) =>
@@ -60,6 +61,11 @@ export default class App extends React.Component {
         <AppLoading />
       );
     }
+    // if (!this.state.isLogin) {
+    //   return (
+    //     <Login />
+    //   );
+    // }
     return (
       <Container style={styles.container}>
         <Header />
