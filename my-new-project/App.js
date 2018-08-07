@@ -28,6 +28,7 @@ const vendorNames = [
 export default class App extends React.Component {
   state = {
     isReady: false,
+    isLoggedIn: false,
     modalVisible: false,
     selectedItem: undefined,
     items: (() => vendorNames
@@ -55,17 +56,26 @@ export default class App extends React.Component {
     });
   }
 
+  loginHandler({username, password, createAccount}) {
+    //TODO: if createAccount, open account creation page
+    this.setState({
+      isLoggedIn: true
+    });
+  }
+
   render() {
     if (!this.state.isReady) {
       return (
         <AppLoading />
       );
     }
-    // if (!this.state.isLogin) {
-    //   return (
-    //     <Login />
-    //   );
-    // }
+    if (!this.state.isLoggedIn) {
+      return (
+        <Login {...{
+          handler: this.loginHandler.bind(this)
+        }} />
+      );
+    }
     return (
       <Container style={styles.container}>
         <Header />
