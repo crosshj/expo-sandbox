@@ -2,6 +2,7 @@ import React from 'react';
 //import { StyleSheet, /*Text, View*/ } from 'react-native';
 import { StyleSheet, Image, Platform, StatusBar, TouchableOpacity } from 'react-native';
 import Expo, { Asset, AppLoading } from 'expo';
+import { createDrawerNavigator } from "react-navigation";
 
 import Modal from "react-native-modal";
 
@@ -11,31 +12,27 @@ import {
   H3, Left, Right, Body, Footer, FooterTab
 } from 'native-base';
 
-import Popup from './app/components/popup';
-import ListView from './app/components/listview';
-import Header from './app/components/header';
+import HomeScreen from './app/components/home';
+import SideBar from './app/components/sidebar';
+
 
 const delay = (shouldReject, timeout = 2000) =>
   new Promise((res, rej) =>
     setTimeout(shouldReject ? rej : res, timeout));
 
-const vendorNames = [
-  'McDonalds', 'Burger King', 'Wendys', 'BP', 'Shell', 'Walmart', 'Target',
-  'Kroger', 'Publix', 'Tin Drum', 'Chipotle', '5 Guys', 'Radio Shack', 'Frys Electronics'
-];
+const HomeScreenRouter = createDrawerNavigator(
+  {
+    Home: { screen: HomeScreen },
+  },
+  {
+    contentComponent: props => <SideBar {...props} />
+  }
+);
 
 export default class App extends React.Component {
   state = {
     isReady: false,
     modalVisible: false,
-    selectedItem: undefined,
-    items: (() => vendorNames
-      .map((x, i) => ({
-        name: x,
-        full_name: 'Foo Bar',
-        score: i+1
-      }))
-    )()
   };
 
   async componentWillMount() {
@@ -47,12 +44,7 @@ export default class App extends React.Component {
     this.setState({ isReady: true });
   }
 
-  setModalVisible(visible, x) {
-    this.setState({
-        modalVisible: visible,
-        selectedItem: x
-    });
-  }
+
 
   render() {
     if (!this.state.isReady) {
@@ -60,29 +52,7 @@ export default class App extends React.Component {
         <AppLoading />
       );
     }
-    return (
-      <Container style={styles.container}>
-        <Header />
-        <ListView
-          items={this.state.items}
-          setModalVisible = {this.setModalVisible.bind(this)}
-          popup={() =>
-            <Popup {...{
-              modalVisible: this.state.modalVisible,
-              selectedItem: this.state.selectedItem,
-              setModalVisible: this.setModalVisible.bind(this)
-            }} />
-          }
-        />
-        <Footer style={styles.footer}>
-          <FooterTab style={styles.footer}>
-            <Button full>
-              <Text style={styles.footerText}>Footer</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
-    );
+    return <HomeScreenRouter />
   }
 
   async _cacheResourcesAsync() {
@@ -100,29 +70,4 @@ export default class App extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // ...Platform.select({
-    //     android: {
-    //         marginTop: StatusBar.currentHeight
-    //     }
-    // })
-  },
-  footer: {
-    backgroundColor: '#eee'
-  },
-  footerText: {
-    color: "#333"
-  },
-  modalImage: {
-    resizeMode: 'contain',
-    height: 200
-  },
-  bold: {
-      fontWeight: '600'
-  },
-  negativeMargin: {
-      marginBottom: -10
-  }
-});
+

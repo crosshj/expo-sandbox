@@ -9,11 +9,13 @@ import {
   H3, Left, Right, Body, Footer, FooterTab
 } from 'native-base';
 
-function HeaderComponent(){
+function HeaderComponent({ navigation }){
     return(
         <Header style={styles.header}>
           <Left>
-            <Button transparent>
+            <Button transparent onPress={() => {
+              navigation.openDrawer();
+            }}>
               <Icon name='menu' />
             </Button>
           </Left>
