@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 //import { StatusBar } from "react-native";
 import { StyleSheet, Image, Platform, StatusBar, TouchableOpacity } from 'react-native';
 import { Container, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem } from "native-base";
 
-import Popup from './popup';
-import ListView from './listview';
-import Header from './header';
+import Popup from '../components/popup';
+import ListView from '../components/listview';
+import Header from '../components/header';
 
 const vendorNames = [
     'McDonalds', 'Burger King', 'Wendys', 'BP', 'Shell', 'Walmart', 'Target',

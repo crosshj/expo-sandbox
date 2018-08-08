@@ -1,20 +1,13 @@
 import React from 'react';
-//import { StyleSheet, /*Text, View*/ } from 'react-native';
-import { StyleSheet, Image, Platform, StatusBar, TouchableOpacity } from 'react-native';
 import Expo, { Asset, AppLoading } from 'expo';
 import { createDrawerNavigator } from "react-navigation";
 
-import Modal from "react-native-modal";
+import Home from './app/screens/home';
+import Profile from './app/screens/profile';
+import Settings from './app/screens/settings';
+import SignOut from './app/screens/signout';
 
-import {
-  Spinner, Text, View, Content, Container, Title, Button, Icon,
-  InputGroup, Input, ListItem, List, Radio, CheckBox, Thumbnail, Card, CardItem,
-  H3, Left, Right, Body, Footer, FooterTab
-} from 'native-base';
-
-import HomeScreen from './app/components/home';
 import SideBar from './app/components/sidebar';
-
 
 const delay = (shouldReject, timeout = 2000) =>
   new Promise((res, rej) =>
@@ -22,10 +15,23 @@ const delay = (shouldReject, timeout = 2000) =>
 
 const HomeScreenRouter = createDrawerNavigator(
   {
-    Home: { screen: HomeScreen },
+    Recipts: { screen: Home },
+    Vendors: { screen: Home },
+    Profile: { screen: Profile },
+    Settings: { screen: Settings },
+    SignOut: { screen: SignOut },
   },
   {
-    contentComponent: props => <SideBar {...props} />
+    contentComponent: props => <SideBar {...props} />,
+    contentOptions: {
+      activeTintColor: '#e91e63',
+      itemsContainerStyle: {
+        marginVertical: 0,
+      },
+      iconContainerStyle: {
+        opacity: 1
+      }
+    }
   }
 );
 
@@ -43,8 +49,6 @@ export default class App extends React.Component {
     await this._cacheResourcesAsync();
     this.setState({ isReady: true });
   }
-
-
 
   render() {
     if (!this.state.isReady) {
@@ -69,5 +73,3 @@ export default class App extends React.Component {
     return Promise.all([ delay(false, 100), ...cacheImages ])
   }
 }
-
-
