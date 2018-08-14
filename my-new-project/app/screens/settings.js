@@ -10,7 +10,6 @@ import Header from '../components/header';
 export default class HomeScreen extends React.Component {
     state = {};
 
-
     render() {
         return (
             <Container style={styles.container}>

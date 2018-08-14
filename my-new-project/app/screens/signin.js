@@ -14,7 +14,7 @@ export default class HomeScreen extends React.Component {
         return (
             <Container style={styles.container}>
                 <Header navigation={this.props.navigation}/>
-                <Text>Profile View</Text>
+                <Text>Sign In View</Text>
             </Container>
         );
     }
