@@ -38,6 +38,7 @@ const HomeScreenRouter = createDrawerNavigator(
 export default class App extends React.Component {
   state = {
     isReady: false,
+    isLoggedIn: false,
     modalVisible: false,
   };
 
@@ -50,10 +51,25 @@ export default class App extends React.Component {
     this.setState({ isReady: true });
   }
 
-  render() {
+  loginHandler({username, password, createAccount}) {
+    //TODO: if createAccount, open account creation page
+    this.setState({
+      isLoggedIn: true
+    });
+  }
+
+render() {
     if (!this.state.isReady) {
       return (
         <AppLoading />
+      );
+    }
+
+    if (!this.state.isLoggedIn) {
+      return (
+        <Login {...{
+          handler: this.loginHandler.bind(this)
+        }} />
       );
     }
     return <HomeScreenRouter />
