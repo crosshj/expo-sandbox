@@ -53,22 +53,36 @@
 // }
 
 import React from 'react';
-import { StyleSheet, ScrollView, Image, Platform, StatusBar, TouchableOpacity } from 'react-native';
-import { DrawerItems, SafeAreaView } from 'react-navigation';
+import { AsyncStorage, StyleSheet, ScrollView, Image, View, Text, Platform, StatusBar, TouchableOpacity } from 'react-native';
+import { DrawerItems, SafeAreaView, NavigationActions } from 'react-navigation';
 import { Container } from 'native-base';
 
 var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAIAAAC0tAIdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAaSURBVChTY0jfaUY8GlWNiUZVYyLaqd5pBgBbpCym1BWunwAAAABJRU5ErkJggg==';
 
-const CustomDrawerContentComponent = (props) => (
-  <Container>
-    <Image style={styles.backgroundImage} source={{uri: base64Icon}}/>
-    <ScrollView>
-        <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
-        <DrawerItems {...props} />
-        </SafeAreaView>
-    </ScrollView>
-  </Container>
-);
+async function signOut({ event, navigation }){
+  event.persist();
+  navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignOut' }));
+}
+
+const CustomDrawerContentComponent = (props) => {
+  const { navigation } = props;
+  //console.log({props});
+  return (
+    <Container>
+      <Image style={styles.backgroundImage} source={{uri: base64Icon}}/>
+      <ScrollView>
+          <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
+            <DrawerItems {...props} />
+          </SafeAreaView>
+          <TouchableOpacity onPress={(event) => signOut({ event, navigation })}>
+            <View>
+              <Text>Logout</Text>
+            </View>
+          </TouchableOpacity>
+      </ScrollView>
+    </Container>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
