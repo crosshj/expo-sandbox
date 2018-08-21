@@ -34,7 +34,10 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <Container style={styles.container}>
-                <Header navigation={this.props.navigation}/>
+                <Header
+                    navigation={this.props.navigation}
+                    title={'Vendors'}
+                />
                 <ListView
                     items={this.state.items}
                     setModalVisible={this.setModalVisible.bind(this)}

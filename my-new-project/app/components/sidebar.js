@@ -1,61 +1,10 @@
-// import React from "react";
-// import {
-//     StyleSheet, AppRegistry, Image, StatusBar
-// } from "react-native";
-// import {
-//     Container, Content, Text, List, ListItem
-// } from "native-base";
-
-// const routes = ["Home", "Chat", "Profile"];
-// export default class SideBar extends React.Component {
-//   render() {
-//     return (
-//       <Container>
-//         <Content>
-//           {/* <Image
-//             source={{
-//               uri: "https://github.com/GeekyAnts/NativeBase-KitchenSink/raw/react-navigation/img/drawer-cover.png"
-//             }}
-//             style={{
-//               height: 120,
-//               alignSelf: "stretch",
-//               justifyContent: "center",
-//               alignItems: "center"
-//             }}/>
-//             <Image
-//                 square
-//                 style={{ height: 80, width: 70 }}
-//                 source={{
-//                 uri: "https://github.com/GeekyAnts/NativeBase-KitchenSink/raw/react-navigation/img/logo.png"
-//                 }}
-//             /> */}
-//           <List
-//             dataArray={routes}
-//             style={{ marginTop: 56}}
-//             renderRow={data => {
-//               return (
-//                 <ListItem
-//                   button
-//                   onPress={() => {
-//                       this.props.navigation.navigate(data);
-//                       this.props.navigation.closeDrawer();
-//                     }}
-//                 >
-//                   <Text>{data}</Text>
-//                 </ListItem>
-//               );
-//             }}
-//           />
-//         </Content>
-//       </Container>
-//     );
-//   }
-// }
-
 import React from 'react';
-import { AsyncStorage, StyleSheet, ScrollView, Image, View, Text, Platform, StatusBar, TouchableOpacity } from 'react-native';
-import { DrawerItems, SafeAreaView, NavigationActions } from 'react-navigation';
+import { AsyncStorage, StyleSheet, ScrollView, Image, Icon, ImageBackground, View, Text, Platform, StatusBar, TouchableOpacity } from 'react-native';
+import { DrawerItems, SafeAreaView, NavigationActions, DrawerActions } from 'react-navigation';
 import { Container } from 'native-base';
+
+import userIconMale from './icons/userIcon-male';
+import { Ionicons } from '@expo/vector-icons';
 
 var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAIAAAC0tAIdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAaSURBVChTY0jfaUY8GlWNiUZVYyLaqd5pBgBbpCym1BWunwAAAABJRU5ErkJggg==';
 
@@ -64,19 +13,75 @@ async function signOut({ event, navigation }){
   navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignOut' }));
 }
 
-const CustomDrawerContentComponent = (props) => {
-  const { navigation } = props;
+async function settingsPage({ event, navigation }){
+  event.persist();
+  navigation.navigate('Settings');
+  navigation.dispatch(DrawerActions.closeDrawer());
+}
+
+async function profilePage({ event, navigation }){
+  event.persist();
+  navigation.navigate('Profile');
+  navigation.dispatch(DrawerActions.closeDrawer());
+}
+
+const visibleItems = ['Receipts', 'Vendors'];
+const getVisible = item => visibleItems.includes(item.key);
+
+const CustomDrawerContentComponent = ({items, ...other}) => {
+  const { navigation } = other;
   //console.log({props});
   return (
     <Container>
-      <Image style={styles.backgroundImage} source={{uri: base64Icon}}/>
+      <ImageBackground style={styles.backgroundImage} source={{uri: base64Icon}}>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            right: 15,
+            top: 35
+          }}
+          onPress={(event) => settingsPage({ event, navigation })}
+        >
+          <Ionicons
+            name="md-settings"
+            size={32} color="white"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            marginRight: 45,
+          }}
+          onPress={(event) => profilePage({ event, navigation })}
+        >
+          <Image style={{
+            width: 75,
+            height: 75,
+            marginTop: 40,
+            marginLeft: 10
+          }} source={{uri: userIconMale()}}/>
+          <Text style={{
+            marginLeft: 15,
+            fontWeight: 'bold',
+            color: 'white'
+          }}
+          >Johnathan Doe</Text>
+          <Text style={{
+            marginLeft: 15,
+            color: 'white'
+          }}
+          >johnathandoe33@ledjr.com</Text>
+        </TouchableOpacity>
+      </ImageBackground>
       <ScrollView>
           <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
-            <DrawerItems {...props} />
+            <DrawerItems
+              items={items.filter(getVisible)}
+              {...other}
+            />
           </SafeAreaView>
           <TouchableOpacity onPress={(event) => signOut({ event, navigation })}>
             <View>
-              <Text>Logout</Text>
+              <Text style={styles.menuItem}>Logout</Text>
             </View>
           </TouchableOpacity>
       </ScrollView>
@@ -90,7 +95,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backgroundImage: {
-    width: '100%', height: 200, resizeMode: Image.resizeMode.stretch
+    width: '100%', height: 165
+  },
+  menuItem: {
+    margin: 16,
+    fontWeight: 'bold',
+    color: 'rgba(0, 0, 0, .87)',
   }
 });
 

@@ -9,22 +9,26 @@ import {
   H3, Left, Right, Body, Footer, FooterTab
 } from 'native-base';
 
-function HeaderComponent({ navigation }){
+function HeaderComponent({ navigation, title, hideSearch }){
     return(
         <Header style={styles.header}>
           <Left>
-            <Button transparent onPress={() => {
-              navigation.openDrawer();
-            }}>
-              <Icon name='menu' />
-            </Button>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.openDrawer();
+              }}
+            >
+              <Icon name='menu' style={{ color: 'white', marginLeft: 15 }}/>
+            </TouchableOpacity>
           </Left>
           <Body>
-            <Title>Ledjr</Title>
+            <Title>{title || 'Ledjr'}</Title>
           </Body>
           <Right>
             <Button transparent>
-              <Icon name='search' />
+              { !hideSearch &&
+                <Icon name='search' />
+              }
             </Button>
           </Right>
         </Header>

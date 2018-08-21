@@ -2,7 +2,8 @@ import React from 'react';
 import Expo, { Asset, AppLoading } from 'expo';
 import { createDrawerNavigator, createSwitchNavigator, createStackNavigator } from "react-navigation";
 
-import Home from './app/screens/home';
+import Receipts from './app/screens/receipts';
+import Vendors from './app/screens/vendors';
 import Profile from './app/screens/profile';
 import Settings from './app/screens/settings';
 import SignIn from './app/screens/signin';
@@ -13,8 +14,8 @@ import SideBar from './app/components/sidebar';
 
 const AppNavigator = createDrawerNavigator(
   {
-    Recipts: { screen: Home },
-    Vendors: { screen: Home },
+    Receipts: { screen: Receipts },
+    Vendors: { screen: Vendors },
     Profile: { screen: Profile },
     Settings: { screen: Settings },
   },
