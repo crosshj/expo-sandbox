@@ -8,9 +8,9 @@ import ListView from '../components/listview';
 import Header from '../components/header';
 
 const vendorNames = [
-    'McDonalds', 'Burger King', 'Wendys', 'BP', 'Shell', 'Walmart', 'Target',
-    'Kroger', 'Publix', 'Tin Drum', 'Chipotle', '5 Guys', 'Radio Shack', 'Frys Electronics'
-];
+    'McDonalds', 'Burger King', 'Wendys', 'Shell', 'Walmart', 'Target',
+    'Publix', 'Chipotle', 'Five Guys', 'Radio Shack'
+].sort((a,b) => a.localeCompare(b));
 
 export default class HomeScreen extends React.Component {
     state = {

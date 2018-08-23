@@ -10,6 +10,16 @@ import {
   H3, Left, Right, Body, Footer, FooterTab
 } from 'native-base';
 
+import vendorLogos from './vendorLogos';
+const defaultLogo = require('../../assets/appDefault.png');
+
+function getImage(item){
+    const uri = vendorLogos(item)();
+    return uri
+        ? { uri }
+        : defaultLogo;
+}
+
 function ListView({ items, setModalVisible, popup}){
     return (
         <Content>
@@ -21,9 +31,9 @@ function ListView({ items, setModalVisible, popup}){
                             style={{ marginTop: 'auto', marginBottom: 'auto', flex: 1 }}
                             onPress={()=>setModalVisible(true, item)}
                         >
-                            <Thumbnail square scaleX={1.1} scaleY={1.1}
-                            source={require('../../assets/appDefault.png')}
-                            style={{ marginLeft: 5 }}
+                            <Thumbnail
+                                source={getImage(item.name)}
+                                style={{ marginLeft: 5 }}
                             />
                         </CardItem>
                         <CardItem cardBody style={{

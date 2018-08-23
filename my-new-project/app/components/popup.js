@@ -20,6 +20,16 @@ const items = [
   { name: 'Diapers', amount: '29.23' },
 ];
 
+import vendorLogos from './vendorLogos';
+const defaultLogo = require('../../assets/appDefault.png');
+
+function getImage(item){
+    const uri = vendorLogos(item)();
+    return uri
+        ? { uri }
+        : defaultLogo;
+}
+
 function Popup({ modalVisible, selectedItem, setModalVisible }){
     if(!modalVisible){
       return null;
@@ -40,8 +50,8 @@ function Popup({ modalVisible, selectedItem, setModalVisible }){
                   <Text style={{ color: 'white' }}>{selectedItem.name}</Text>
                 </CardItem> */}
                 <CardItem style={{ flexDirection: 'column'}}>
-                    <Thumbnail square scaleX={1.3} scaleY={1.3}
-                      source={require('../../assets/appDefault.png')}
+                    <Thumbnail scaleX={1.3} scaleY={1.3}
+                      source={getImage(selectedItem.name)}
                       style={{marginTop: 20, marginBottom: 10}}
                     />
                     <Text style={{fontSize: 25}}>{selectedItem.name}</Text>
