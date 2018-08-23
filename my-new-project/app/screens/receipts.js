@@ -8,7 +8,7 @@ import ListView from '../components/listview';
 import Header from '../components/header';
 
 const vendorNames = [
-    'McDonalds', 'Burger King', 'Wendys', 'Shell', 'Walmart', 'Target',
+    'McDonalds', 'Burger King', 'Wendys', 'Walmart', 'Target',
     'Publix', 'Chipotle', 'Five Guys', 'Radio Shack'
 ];
 
