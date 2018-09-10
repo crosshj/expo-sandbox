@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { Asset, AppLoading } from 'expo';
+import { Asset, AppLoading, Permissions, Notifications } from 'expo';
 
 const delay = (shouldReject, timeout = 2000) =>
   new Promise((res, rej) =>
@@ -30,11 +30,30 @@ class LoadingScreen extends React.Component {
 
     await this._cacheResourcesAsync();
 
+    const pushToken = await this._registerPushNotifications();
+    await AsyncStorage.setItem('pushToken', pushToken);
+
     this.props.navigation.navigate(
         userToken ? 'AppNavigator' : 'AuthNavigator'
         //'AppNavigator'
     );
   };
+
+  async _registerPushNotifications() {
+    // Android remote notification permissions are granted during the app
+    // install, so this will only ask on iOS
+    let { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+
+    // Stop here if the user did not grant permissions
+    if (status !== 'granted') {
+      return;
+    }
+
+    // Get the token that uniquely identifies this device
+    let token = await Notifications.getExpoPushTokenAsync();
+
+    return token;
+  }
 
   async _cacheResourcesAsync() {
     const images = [
