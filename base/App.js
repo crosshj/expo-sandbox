@@ -45,13 +45,13 @@ const SwitchNavigator = createSwitchNavigator(
     AuthNavigator,
   },
   {
-    initialRouteName: 'Loading',
+    initialRouteName: 'AppNavigator',
   }
 );
 
 export default class App extends React.Component {
   state = {
-    isReady: false,
+    isReady: true,
     isLoggedIn: true,
     modalVisible: false,
   };
