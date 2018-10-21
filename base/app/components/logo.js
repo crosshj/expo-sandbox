@@ -1,15 +1,9 @@
 import React from 'react';
 import { StyleSheet, Image, View, Platform, StatusBar, TouchableOpacity } from 'react-native';
-import logoURI from './icons/logo';
 
 function Logo(){
     return(
         <View style={styles.container}>
-            <Image
-                source={{ uri: logoURI() }}
-                resizeMode='contain'
-                style={styles.image}
-            />
         </View>
     );
 }
