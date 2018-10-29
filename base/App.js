@@ -4,6 +4,9 @@ import { createDrawerNavigator, createSwitchNavigator, createStackNavigator } fr
 import Landscape from './app/screens/landscape';
 import Portrait from './app/screens/portrait';
 
+import Profile from './app/screens/profile';
+import Settings from './app/screens/settings';
+
 import SignIn from './app/screens/signin';
 import SignOut from './app/screens/signout';
 import Loading from './app/screens/loading';
@@ -18,6 +21,8 @@ const AppNavigator = createDrawerNavigator(
     Landscape: { screen: Portrait(<WebView
       source={{uri}}
     />) },
+    Profile: { screen: Profile },
+    Settings: { screen: Settings },
   },
   {
     contentComponent: props => <SideBar {...props} />,
@@ -45,7 +50,7 @@ const SwitchNavigator = createSwitchNavigator(
     AuthNavigator,
   },
   {
-    initialRouteName: 'AppNavigator',
+    initialRouteName: 'Loading',
   }
 );
 

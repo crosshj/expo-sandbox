@@ -3,6 +3,7 @@ import { AsyncStorage, StyleSheet, ScrollView, Image, Icon, ImageBackground, Vie
 import { DrawerItems, SafeAreaView, NavigationActions, DrawerActions } from 'react-navigation';
 import { Container } from 'native-base';
 
+import userIconMale from './icons/userIcon-male';
 import { Ionicons } from '@expo/vector-icons';
 
 var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAIAAAC0tAIdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAaSURBVChTY0jfaUY8GlWNiUZVYyLaqd5pBgBbpCym1BWunwAAAABJRU5ErkJggg==';
@@ -24,7 +25,7 @@ async function profilePage({ event, navigation }){
   navigation.dispatch(DrawerActions.closeDrawer());
 }
 
-const visibleItems = ['Receipts', 'Vendors'];
+const visibleItems = ['Portrait', 'Landscape'];
 const getVisible = item => visibleItems.includes(item.key);
 
 const CustomDrawerContentComponent = ({items, ...other}) => {
@@ -52,6 +53,12 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
           }}
           onPress={(event) => profilePage({ event, navigation })}
         >
+          <Image style={{
+            width: 75,
+            height: 75,
+            marginTop: 40,
+            marginLeft: 10
+          }} source={{uri: userIconMale()}}/>
           <Text style={{
             marginLeft: 15,
             fontWeight: 'bold',
