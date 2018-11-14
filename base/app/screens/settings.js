@@ -16,21 +16,21 @@ import GlobalStateContainer from '../state/globalStateContainer';
 
 export default class HomeScreen extends React.Component {
     render() {
-        const renderItem = (global) => ({item}) => (
+        const renderItem = ({toggle}) => ({item}) => (
             <TouchableWithoutFeedback
-                onPress={() => {global.toggleProp(item.key)} }
+                onPress={() => toggle(item)}
                 style = {{borderWidth: 1}}
             >
                 <ListItem
                     style={styles.listItem}
-                    onPress={() => {global.toggleProp(item.key)} }
+                    onPress={() => toggle(item)}
                 >
                     <Body>
                         <Text>{item.key}</Text>
                     </Body>
                     <CheckBox
                         checked={item.state}
-                        onPress={ () => {global.toggleProp(item.key)} }
+                        onPress={() => toggle(item)}
                     />
                 </ListItem>
             </TouchableWithoutFeedback>
@@ -55,12 +55,14 @@ export default class HomeScreen extends React.Component {
                         marginTop: 20
                     }}>
                         <Subscribe to={[ GlobalStateContainer ]}>
-                            {(global) => (
+                            {({state, toggleProp}) => (
                                 <FlatList
-                                    data={Object.keys(global.state.settings)
-                                        .map(key => ({key, state: global.state.settings[key]}))
+                                    data={Object.keys(state.settings)
+                                        .map(key => ({key, state: state.settings[key]}))
                                     }
-                                    renderItem={renderItem(global)}
+                                    renderItem={renderItem({
+                                        toggle: (i) => toggleProp(i.key)
+                                    })}
                                 />
                             )}
                         </Subscribe>
