@@ -1,5 +1,8 @@
 import React from 'react';
-import { StyleSheet, Image, Platform, StatusBar, TouchableOpacity, FlatList } from 'react-native';
+import {
+    StyleSheet, Image, Platform, StatusBar, TouchableOpacity, FlatList,
+    TouchableWithoutFeedback
+} from 'react-native';
 import { Container, Title, Left, Icon, Right, Button, Body,
     Content, Text, Card, CardItem, View, ListItem, CheckBox
 } from "native-base";
@@ -8,10 +11,31 @@ import { Ionicons } from '@expo/vector-icons';
 import Header from '../components/header';
 import { ScrollView } from 'react-native-gesture-handler';
 
-export default class HomeScreen extends React.Component {
-    state = {};
+import { Subscribe } from 'unstated';
+import GlobalStateContainer from '../state/globalStateContainer';
 
+export default class HomeScreen extends React.Component {
     render() {
+        const renderItem = (global) => ({item}) => (
+            <TouchableWithoutFeedback
+                onPress={() => {global.toggleProp(item.key)} }
+                style = {{borderWidth: 1}}
+            >
+                <ListItem
+                    style={styles.listItem}
+                    onPress={() => {global.toggleProp(item.key)} }
+                >
+                    <Body>
+                        <Text>{item.key}</Text>
+                    </Body>
+                    <CheckBox
+                        checked={item.state}
+                        onPress={ () => {global.toggleProp(item.key)} }
+                    />
+                </ListItem>
+            </TouchableWithoutFeedback>
+        );
+
         return (
             <Container style={styles.container}>
                 <Header
@@ -30,24 +54,16 @@ export default class HomeScreen extends React.Component {
                         width: '80%',
                         marginTop: 20
                     }}>
-                        <FlatList
-                            data={[
-                                {key: 'Share anonymous usage data', state: true },
-                                {key: 'Update social media', state: false },
-                                {key: 'Track spending', state: true },
-                                {key: 'Protect private data', state: true },
-                                {key: 'Use internal browser', state: false },
-                                {key: 'Encrypt connection', state: true },
-                            ]}
-                            renderItem={({item}) => (
-                                <ListItem style={styles.listItem}>
-                                    <Body>
-                                        <Text>{item.key}</Text>
-                                    </Body>
-                                    <CheckBox checked={item.state} />
-                                </ListItem>
+                        <Subscribe to={[ GlobalStateContainer ]}>
+                            {(global) => (
+                                <FlatList
+                                    data={Object.keys(global.state.settings)
+                                        .map(key => ({key, state: global.state.settings[key]}))
+                                    }
+                                    renderItem={renderItem(global)}
+                                />
                             )}
-                        />
+                        </Subscribe>
                     </ScrollView>
                 </View>
             </Container>

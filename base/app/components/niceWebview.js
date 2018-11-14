@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, WebView, ActivityIndicator } from 'react-native';
+import { View, WebView, Text, ActivityIndicator } from 'react-native';
 import { RippleLoader } from 'react-native-indicator';
+
+import { Subscribe } from 'unstated';
+import GlobalStateContainer from '../state/globalStateContainer';
 
 const LoadingPage = ({ loading, offset }) => {
     return loading
@@ -45,6 +48,11 @@ export default class MyWeb extends React.Component {
     render(){
         return (
             <View style={{flex:1}}>
+                <Subscribe to={[ GlobalStateContainer ]}>
+                    {(global) => (
+                        <Text style={{color: 'white'}}>{global.state.count}</Text>
+                    )}
+                </Subscribe>
                 <WebView
                     { ...this.state.props }
                     style={{flex:1}}
