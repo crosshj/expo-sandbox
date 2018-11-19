@@ -12,7 +12,6 @@ const LoadingPage = ({ loading, offset }) => {
                 flex:1,
                 justifyContent: 'center',
                 alignItems: 'center',
-                paddingBottom: offset,
                 backgroundColor: '#1c2a35',
                 position: 'absolute',
                 top: 0,
@@ -48,18 +47,12 @@ export default class MyWeb extends React.Component {
     render(){
         return (
             <View style={{flex:1}}>
-                <Subscribe to={[ GlobalStateContainer ]}>
-                    {(global) => (
-                        <Text style={{color: 'white'}}>{global.state.count}</Text>
-                    )}
-                </Subscribe>
                 <WebView
                     { ...this.state.props }
                     style={{flex:1}}
                     onLoadEnd={() => { this.showWebView() }}
                 />
                 <LoadingPage
-                    offset={240}
                     loading={this.state.loading}
                 />
             </View>
