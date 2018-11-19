@@ -27,31 +27,25 @@ function Login({ navigation }){
         <Logo />
         <Content style={styles.content}>
             <Form style={{
-                marginTop: 0,
+                marginTop: 20,
             }}>
-                <Item style={{ marginLeft: 0, marginBottom: 15 }}>
-                    <Input placeholder='Username' />
-                </Item>
-                <Item style={{ marginLeft: 0, marginBottom: 35 }}>
-                    <Input placeholder='Password' />
-                </Item>
                 <Button
+                    rounded block
                     style={styles.formButton}
-                    success block
                     onPress={(event) => signIn({ event, navigation })}
                 >
-                <Text>Sign In</Text>
+                    <Text>Log in / Register</Text>
                 </Button>
             </Form>
-        </Content>
-        <Content style={styles.footer}>
-            <Text>Create an account</Text>
         </Content>
     </Container>
   );
 }
 
 const styles = StyleSheet.create({
+  formButton: {
+      backgroundColor: '#78c263'
+  },
   container: {
     display: 'flex',
     marginTop: 'auto',

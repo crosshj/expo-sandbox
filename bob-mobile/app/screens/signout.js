@@ -44,22 +44,12 @@ export default class HomeScreen extends React.Component {
             <Container style={styles.container}>
                 <Logo />
                 <Content style={styles.content}>
-                    <Text
-                        style={{
-                            fontSize: 30,
-                            color: '#999',
-                            width: '100%',
-                            textAlign: 'center',
-                            fontStyle: 'italic',
-                            marginBottom: 30
-                        }}
-                    >Come back again soon!</Text>
                     <Form style={{
                         marginTop: 0,
                     }}>
                         <Button
+                            rounded block
                             style={styles.formButton}
-                            success block
                             onPress={(event) => signIn({ navigation })}
                         >
                             <Text>Sign In Again</Text>
@@ -72,6 +62,9 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    formButton: {
+        backgroundColor: '#78c263'
+    },
     container: {
       display: 'flex',
       marginTop: 'auto',

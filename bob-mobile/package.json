@@ -7,8 +7,11 @@
     "native-base": "^2.7.2",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-28.0.0.tar.gz",
+    "react-native-indicator": "^0.7.0",
     "react-native-modal": "^6.5.0",
+    "react-native-spinkit": "^1.1.1",
     "react-native-user-avatar": "^1.0.3",
-    "react-navigation": "^2.9.1"
+    "react-navigation": "^2.9.1",
+    "unstated": "^2.1.1"
   }
 }

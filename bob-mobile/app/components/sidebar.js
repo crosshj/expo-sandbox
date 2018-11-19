@@ -6,7 +6,8 @@ import { Container } from 'native-base';
 import userIconMale from './icons/userIcon-male';
 import { Ionicons } from '@expo/vector-icons';
 
-var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAIAAAC0tAIdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAaSURBVChTY0jfaUY8GlWNiUZVYyLaqd5pBgBbpCym1BWunwAAAABJRU5ErkJggg==';
+var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xMzQDW3oAAAAMSURBVBhXY5DySwYAAVEAzItjNDcAAAAASUVORK5CYII=';
+//#1a4e63 ^^^
 
 async function signOut({ event, navigation }){
   event.persist();
@@ -25,7 +26,7 @@ async function profilePage({ event, navigation }){
   navigation.dispatch(DrawerActions.closeDrawer());
 }
 
-const visibleItems = ['Receipts', 'Vendors'];
+const visibleItems = ['Dashboard', 'Strategies'];
 const getVisible = item => visibleItems.includes(item.key);
 
 const CustomDrawerContentComponent = ({items, ...other}) => {
@@ -64,12 +65,12 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
             fontWeight: 'bold',
             color: 'white'
           }}
-          >Johnathan Doe</Text>
+          >Day Trader</Text>
           <Text style={{
             marginLeft: 15,
             color: 'white'
           }}
-          >johnathandoe33@ledjr.com</Text>
+          >daytrader@bob.com</Text>
         </TouchableOpacity>
       </ImageBackground>
       <ScrollView>
