@@ -16,6 +16,8 @@ import Loading from '../screens/loading';
 
 import SideBar from '../components/sidebar';
 
+import Auth0 from '../screens/auth0';
+
 //import { html, script } from '../components/iframeWrapper';
 
 //const uri = 'https://start.duckduckgo.com/?kae=d&ko=-2';
@@ -57,15 +59,16 @@ const AuthNavigator = createStackNavigator(
 );
 
 const SwitchNavigator = createSwitchNavigator(
-  {
-    Loading,
-    AppNavigator,
-    AuthNavigator,
-  },
-  {
-    initialRouteName: 'Loading',
-  }
-);
+  // {
+  //   Loading,
+  //   AppNavigator,
+  //   AuthNavigator,
+  // },
+  // {
+  //   initialRouteName: 'Loading',
+  // }
+  { Auth0 }
+  );
 
 export default class Navigator extends React.Component {
   render() {

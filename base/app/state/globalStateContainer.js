@@ -1,4 +1,22 @@
 import { Container } from 'unstated';
+import { AuthSession } from 'expo';
+import jwtDecoder from 'jwt-decode';
+import {
+    Alert,
+} from 'react-native';
+
+// https://github.com/expo/auth0-example/blob/master/App.js
+// https://github.com/expo/auth0-example/issues/6
+
+
+const auth0ClientId = 'Jmk1cLExXAy9PRe9dztRP4WfmEc43MRv'; //it's okay to share this publicly
+const auth0Domain = 'https://crosshj.auth0.com';
+
+function toQueryString(params) {
+    return '?' + Object.entries(params)
+        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+        .join('&');
+}
 
 export default class GlobalStateContainer extends Container {
     state = {
@@ -13,7 +31,9 @@ export default class GlobalStateContainer extends Container {
             'Protect private data': true,
             'Use internal browser': false,
             'Encrypt connection': true
-        }
+        },
+        username: undefined,
+        picture: undefined
     };
 
     increment = () => {
@@ -26,5 +46,58 @@ export default class GlobalStateContainer extends Container {
         this.setState(state => ({
             settings: { ...state.settings, ...{ [prop]: !this.state.settings[prop] }}
         }));
+    }
+
+    _loginWithAuth0 = async () => {
+        const redirectUrl = AuthSession.getRedirectUrl();
+        //console.log(`Redirect URL (add this to Auth0): ${redirectUrl}`);
+        const result = await AuthSession.startAsync({
+            authUrl: `${auth0Domain}/authorize` + toQueryString({
+                client_id: auth0ClientId,
+                response_type: 'token',
+                scope: 'openid name profile',
+                redirect_uri: redirectUrl,
+            }),
+        });
+
+        //console.log(result);
+        if (result.error || result.errorCode) {
+            Alert.alert('Error', result.error_description
+                || result.errorCode
+                || 'something went wrong while logging in');
+            return;
+        }
+
+        if (result.type === 'success') {
+            this.handleParams(result.params);
+        }
+    }
+
+    _logoutAuth0 = () => {
+        this.setState(state => ({
+            username: undefined,
+            picture: undefined
+        }));
+    }
+
+    handleParams = (responseObj) => {
+        // fetch(`${auth0Domain}/userinfo?access_token=${responseObj.access_token}`)
+        //     .then(response => {
+        //         if (response.status === 200) {
+        //             response.json().then(parsedResponse => {
+        //             const { nickname, email, picture } = parsedResponse
+        //             console.log({ parsedResponse })
+        //             this.setState({ nickname, email, picture });
+        //             })
+        //         }
+        //         else {
+        //             console.log('Something went wrong. ErrorCode: ', response.status);
+        //         }
+        //     })
+        const encodedToken = responseObj.id_token;
+        const decodedToken = jwtDecoder(encodedToken);
+        const { name: username, picture } = decodedToken;
+        //console.log({ decodedToken });
+        this.setState({ username, picture });
     }
 }
