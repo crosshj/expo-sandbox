@@ -49,18 +49,20 @@ export default class GlobalStateContainer extends Container {
     }
 
     _loginWithAuth0 = async () => {
-        const redirectUrl = AuthSession.getRedirectUrl();
-        //console.log(`Redirect URL (add this to Auth0): ${redirectUrl}`);
+        const redirect_uri = AuthSession.getRedirectUrl();
+        console.log(`Redirect URL (add this to Auth0): ${redirect_uri}`);
+        const authUrl = `${auth0Domain}/authorize` + toQueryString({
+            client_id: auth0ClientId,
+            response_type: 'token',
+            scope: 'openid name profile',
+            redirect_uri,
+        });
+        console.log({ authUrl });
         const result = await AuthSession.startAsync({
-            authUrl: `${auth0Domain}/authorize` + toQueryString({
-                client_id: auth0ClientId,
-                response_type: 'token',
-                scope: 'openid name profile',
-                redirect_uri: redirectUrl,
-            }),
+            authUrl,
         });
 
-        //console.log(result);
+        //Alert.alert(result);
         if (result.error || result.errorCode) {
             Alert.alert('Error', result.error_description
                 || result.errorCode
@@ -97,7 +99,7 @@ export default class GlobalStateContainer extends Container {
         const encodedToken = responseObj.id_token;
         const decodedToken = jwtDecoder(encodedToken);
         const { name: username, picture } = decodedToken;
-        //console.log({ decodedToken });
+        console.log({ decodedToken });
         this.setState({ username, picture });
     }
 }
