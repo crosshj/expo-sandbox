@@ -8,6 +8,8 @@ import {
 // https://github.com/expo/auth0-example/blob/master/App.js
 // https://github.com/expo/auth0-example/issues/6
 
+// ALTERNATIVE: https://github.com/auth0-samples/react-native-embedded-login/blob/master/actions/auth/index.js
+
 
 const auth0ClientId = 'Jmk1cLExXAy9PRe9dztRP4WfmEc43MRv'; //it's okay to share this publicly
 const auth0Domain = 'https://crosshj.auth0.com';
