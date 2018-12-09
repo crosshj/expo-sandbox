@@ -64,7 +64,7 @@ export default class GlobalStateContainer extends Container {
             authUrl,
         });
 
-        //Alert.alert(result);
+        console.log({ result });
         if (result.error || result.errorCode) {
             Alert.alert('Error', result.error_description
                 || result.errorCode

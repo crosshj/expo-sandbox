@@ -3,8 +3,9 @@
     "name": "base",
     "description": "Base apps off this",
     "slug": "base",
+    "scheme": "base",
     "privacy": "unlisted",
-    "sdkVersion": "28.0.0",
+    "sdkVersion": "31.0.0",
     "platforms": [
       "ios",
       "android"
