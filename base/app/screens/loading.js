@@ -1,12 +1,12 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  AsyncStorage,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+// import {
+//   ActivityIndicator,
+//   AsyncStorage,
+//   StatusBar,
+//   StyleSheet,
+//   Text,
+//   View,
+// } from 'react-native';
 import { Asset, AppLoading, Permissions, Notifications } from 'expo';
 
 import { registerPush } from '../services/notifications'
@@ -23,7 +23,8 @@ class LoadingScreen extends React.Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   async _bootstrapAsync() {
-    const userToken = await AsyncStorage.getItem('userToken');
+    //const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = false;
 
     await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
@@ -33,10 +34,10 @@ class LoadingScreen extends React.Component {
     await this._cacheResourcesAsync();
     await registerPush();
 
-    this.props.navigation.navigate(
-        userToken ? 'AppNavigator' : 'AuthNavigator'
-        //'AppNavigator'
-    );
+    const navTo = userToken ? 'AppNavigator' : 'AuthNavigator';
+    //const navTo = 'AppNavigator';
+    console.log(`--- will navigate away from loading to ${navTo}!!`);
+    this.props.navigation.navigate(navTo);
   };
 
   async _cacheResourcesAsync() {

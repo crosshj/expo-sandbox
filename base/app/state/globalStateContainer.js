@@ -50,7 +50,7 @@ export default class GlobalStateContainer extends Container {
         }));
     }
 
-    _loginWithAuth0 = async () => {
+    _loginWithAuth0 = async ({ event, navigation }) => {
         const redirect_uri = AuthSession.getRedirectUrl();
         console.log(`Redirect URL (add this to Auth0): ${redirect_uri}`);
         const authUrl = `${auth0Domain}/authorize` + toQueryString({
@@ -73,18 +73,20 @@ export default class GlobalStateContainer extends Container {
         }
 
         if (result.type === 'success') {
-            this.handleParams(result.params);
+            this.handleParams(result.params, navigation);
         }
     }
 
-    _logoutAuth0 = () => {
+    _logoutAuth0 = ({ navigation }) => {
         this.setState(state => ({
             username: undefined,
-            picture: undefined
+            picture: undefined,
+            token: undefined,
         }));
+        navigation.navigate('SignIn');
     }
 
-    handleParams = (responseObj) => {
+    handleParams = (responseObj, navigation) => {
         // fetch(`${auth0Domain}/userinfo?access_token=${responseObj.access_token}`)
         //     .then(response => {
         //         if (response.status === 200) {
@@ -102,6 +104,7 @@ export default class GlobalStateContainer extends Container {
         const decodedToken = jwtDecoder(encodedToken);
         const { name: username, picture } = decodedToken;
         console.log({ decodedToken });
-        this.setState({ username, picture });
+        this.setState({ username, picture, token: decodedToken });
+        navigation.navigate('AppNavigator');
     }
 }

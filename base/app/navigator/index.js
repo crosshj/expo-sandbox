@@ -16,14 +16,15 @@ import Loading from '../screens/loading';
 
 import SideBar from '../components/sidebar';
 
-import Auth0 from '../screens/auth0';
+//import Auth0 from '../screens/auth0';
 
 //import { html, script } from '../components/iframeWrapper';
 
 //const uri = 'https://start.duckduckgo.com/?kae=d&ko=-2';
-// const uri = 'https://home.crosshj.com';
+const uri = 'https://home.crosshj.com';
 // const uri = 'https://test.letbob.com/chartiq/chart.html#AAPL';
-const uri = 'http://192.168.1.95:3000/mobileChart/';
+//const uri = 'http://192.168.1.95:3000/mobileChart/';
+
 //const html = iframeWrapper();
 
 import WebView from '../components/niceWebview';
@@ -32,7 +33,7 @@ import WebView from '../components/niceWebview';
 
 const AppNavigator = createDrawerNavigator(
   {
-    Landscape: { screen: Landscape(<WebView
+    Landscape: { screen: Portrait(<WebView
       source={{uri}}
       onMessage={(event)=> console.log(event.nativeEvent.data)}
     />) },
@@ -55,19 +56,19 @@ const AppNavigator = createDrawerNavigator(
 
 const AuthNavigator = createStackNavigator(
   { SignIn, SignOut },
-  { headerMode: 'none' }
+  { headerMode: 'none', initialRouteName: 'SignIn' }
 );
 
 const SwitchNavigator = createSwitchNavigator(
-  // {
-  //   Loading,
-  //   AppNavigator,
-  //   AuthNavigator,
-  // },
-  // {
-  //   initialRouteName: 'Loading',
-  // }
-  { Auth0 }
+  {
+    Loading,
+    AuthNavigator,
+    AppNavigator,
+  },
+  {
+    initialRouteName: 'Loading',
+  }
+  // { Auth0 }
   );
 
 export default class Navigator extends React.Component {

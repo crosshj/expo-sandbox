@@ -59,10 +59,12 @@ export default class HomeScreen extends React.Component {
                                 <FlatList
                                     data={Object.keys(state.settings)
                                         .map(key => ({key, state: state.settings[key]}))
+                                        .sort((a, b) => a.key.localeCompare(b.key))
                                     }
                                     renderItem={renderItem({
                                         toggle: (i) => toggleProp(i.key)
                                     })}
+                                    keyExtractor={item => item.key}
                                 />
                             )}
                         </Subscribe>

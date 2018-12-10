@@ -18,27 +18,29 @@ async function signIn({ navigation }){
     navigation.navigate('SignIn');
 }
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             signedOut: false
         };
-        this.signOut();
+        this.signOut(props);
     }
 
-    async signOut(){
-        await AsyncStorage.clear();
+    async signOut(props){
+        // await AsyncStorage.clear();
         await delay(false, 2000);
+        //console.log({ signout: props.signOut.toString() })
+        props.signOut();
         this.setState({ signedOut: true });
     }
 
     render() {
-        if(!this.state.signedOut){
-            return (
-                <AppLoading />
-            );
-        }
+        // if(!this.state.signedOut){
+        //     return (
+        //         <AppLoading />
+        //     );
+        // }
         const { navigation } = this.props;
         return (
             <Container style={styles.container}>
@@ -53,8 +55,8 @@ export default class HomeScreen extends React.Component {
                             fontStyle: 'italic',
                             marginBottom: 30
                         }}
-                    >Come back again soon!</Text>
-                    <Form style={{
+                    >Signing Out..</Text>
+                    {/* <Form style={{
                         marginTop: 0,
                     }}>
                         <Button
@@ -64,12 +66,28 @@ export default class HomeScreen extends React.Component {
                         >
                             <Text>Sign In Again</Text>
                         </Button>
-                    </Form>
+                    </Form> */}
                 </Content>
             </Container>
         );
     }
 }
+
+import { Subscribe } from 'unstated';
+import GlobalStateContainer from '../state/globalStateContainer';
+
+export default (props) => (
+    <Subscribe to={[GlobalStateContainer]}>
+        {({ state, _logoutAuth0 }) => (
+            <HomeScreen
+                { ...props }
+                state={state}
+                signOut={ () => _logoutAuth0(props) }
+            />
+        )}
+    </Subscribe>
+);
+
 
 const styles = StyleSheet.create({
     container: {
