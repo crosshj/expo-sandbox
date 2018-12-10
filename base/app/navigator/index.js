@@ -33,10 +33,10 @@ import WebView from '../components/niceWebview';
 
 const AppNavigator = createDrawerNavigator(
   {
-    Landscape: { screen: Portrait(<WebView
-      source={{uri}}
-      onMessage={(event)=> console.log(event.nativeEvent.data)}
-    />) },
+    // Landscape: { screen: Portrait(<WebView
+    //   source={{uri}}
+    //   onMessage={(event)=> console.log(event.nativeEvent.data)}
+    // />) },
     Profile: { screen: Profile },
     Settings: { screen: Settings },
   },
@@ -67,6 +67,7 @@ const SwitchNavigator = createSwitchNavigator(
   },
   {
     initialRouteName: 'Loading',
+    //initialRouteName: 'AppNavigator',
   }
   // { Auth0 }
   );

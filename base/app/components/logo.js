@@ -2,13 +2,17 @@ import React from 'react';
 import { StyleSheet, Image, View, Platform, StatusBar, TouchableOpacity } from 'react-native';
 import logoURI from './icons/logo';
 
-function Logo(){
+const nullFunction = () => {};
+
+function Logo({onLoadEnd = nullFunction, fadeDuration=0}){
     return(
         <View style={styles.container}>
             <Image
                 source={{ uri: logoURI() }}
-                resizeMode='contain'
+                resizeMode='stretch'
                 style={styles.image}
+                onLoadEnd={onLoadEnd}
+                fadeDuration={fadeDuration}
             />
         </View>
     );
@@ -21,17 +25,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     image: {
-        width: 300,
-        height: 100,
-        marginTop: 110,
-        flex: 1,
+        width: 135,
+        height: 148,
+        marginTop: 223,
+        marginLeft: -12,
         marginBottom: 0
-    },
-    text: {
-        color: 'white',
-        fontWeight: 'bold',
-        backgroundColor: 'transparent',
-        marginTop: 20,
     },
 });
 

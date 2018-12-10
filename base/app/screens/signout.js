@@ -10,6 +10,8 @@ import {
   H3, Left, Right, Body, Footer, FooterTab, Form, Item
 } from 'native-base';
 
+import appJson from '../../app.json';
+
 const delay = (shouldReject, timeout = 2000) =>
   new Promise((res, rej) =>
     setTimeout(shouldReject ? rej : res, timeout));
@@ -46,27 +48,26 @@ class HomeScreen extends React.Component {
             <Container style={styles.container}>
                 <Logo />
                 <Content style={styles.content}>
-                    <Text
+                    {/* <Text
                         style={{
-                            fontSize: 30,
+                            //fontSize: 30,
                             color: '#999',
                             width: '100%',
                             textAlign: 'center',
                             fontStyle: 'italic',
                             marginBottom: 30
                         }}
-                    >Signing Out..</Text>
-                    {/* <Form style={{
-                        marginTop: 0,
+                    >Signing Out..</Text> */}
+                    <Form style={{
+                        marginTop: 40,
                     }}>
                         <Button
                             style={styles.formButton}
-                            success block
-                            onPress={(event) => signIn({ navigation })}
+                            bordered success block
                         >
-                            <Text>Sign In Again</Text>
+                            <Text style={{ color: 'white' }}>Signing Out...</Text>
                         </Button>
-                    </Form> */}
+                    </Form>
                 </Content>
             </Container>
         );
@@ -89,23 +90,44 @@ export default (props) => (
 );
 
 
-const styles = StyleSheet.create({
+// const styles = StyleSheet.create({
+//     container: {
+//       display: 'flex',
+//       marginTop: 'auto',
+//       backgroundColor: "white",
+//       justifyContent: 'space-around',
+//       alignItems: 'center',
+//       height: '100%',
+//     },
+//     content: {
+//       flex: 3,
+//       minWidth: '80%',
+//       marginBottom: 0,
+//     },
+//     footer: {
+//         marginTop: 'auto',
+//         flex: 1,
+//         maxHeight: 80,
+//     }
+//   });
+
+  const styles = StyleSheet.create({
     container: {
-      display: 'flex',
-      marginTop: 'auto',
-      backgroundColor: "white",
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      height: '100%',
+        display: 'flex',
+        marginTop: 'auto',
+        backgroundColor: appJson.expo.splash.backgroundColor,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        height: '100%',
     },
     content: {
-      flex: 3,
-      minWidth: '80%',
-      marginBottom: 0,
+        flex: 3,
+        minWidth: '80%',
+        marginBottom: 0,
     },
-    footer: {
-        marginTop: 'auto',
-        flex: 1,
-        maxHeight: 80,
+    formButton: {
+        borderColor: appJson.expo.splash.backgroundColor,
+        borderWidth: 0,
+        color: appJson.expo.splash.backgroundColor
     }
-  });
+});

@@ -2,6 +2,8 @@ import React from 'react';
 import { AsyncStorage, StyleSheet, Image, Platform, StatusBar, TouchableOpacity } from 'react-native';
 import Expo, { Asset, AppLoading } from 'expo';
 
+import appJson from '../../app.json';
+
 import Logo from '../components/logo';
 
 import {
@@ -14,7 +16,7 @@ import { Subscribe } from 'unstated';
 import GlobalStateContainer from '../state/globalStateContainer';
 
 function Login({ navigation }) {
-    //console.log('-- login page should be showing!!');
+    console.log('--- login page should be showing!!');
     return (
         <Subscribe to={[GlobalStateContainer]}>
             {({ state, _loginWithAuth0 }) => (
@@ -22,19 +24,18 @@ function Login({ navigation }) {
                     <Logo />
                     <Content style={styles.content}>
                         <Form style={{
-                            marginTop: 0,
+                            marginTop: 40,
                         }}>
-                            <Text></Text>
                             <Button
                                 style={styles.formButton}
-                                success block
+                                bordered success block
                                 onPress={(event) => _loginWithAuth0({ event, navigation })}
                             >
                                 {state.token &&
-                                    <Text>Loading...</Text>
+                                    <Text style={{ color: 'white' }}>Loading...</Text>
                                 }
                                 {!state.token &&
-                                    <Text>Sign In / Sign Up</Text>
+                                    <Text style={{ color: 'white' }}>Sign In / Sign Up</Text>
                                 }
                             </Button>
                         </Form>
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         marginTop: 'auto',
-        backgroundColor: "white",
+        backgroundColor: appJson.expo.splash.backgroundColor,
         justifyContent: 'space-around',
         alignItems: 'center',
         height: '100%',
@@ -59,10 +60,10 @@ const styles = StyleSheet.create({
         minWidth: '80%',
         marginBottom: 0,
     },
-    footer: {
-        marginTop: 'auto',
-        flex: 1,
-        maxHeight: 80,
+    formButton: {
+        borderColor: '#ddd',
+        borderWidth: 10,
+        color: appJson.expo.splash.backgroundColor
     }
 });
 

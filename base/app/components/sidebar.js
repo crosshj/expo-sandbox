@@ -1,10 +1,11 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, ScrollView, Image, Icon, ImageBackground, View, Text, Platform, StatusBar, TouchableOpacity } from 'react-native';
+import { AsyncStorage, StyleSheet, ScrollView, Image, Icon, ImageBackground, View, Platform, StatusBar, TouchableOpacity } from 'react-native';
 import { DrawerItems, SafeAreaView, NavigationActions, DrawerActions } from 'react-navigation';
-import { Container } from 'native-base';
+import { Container, Text } from 'native-base';
 
 import userIconMale from './icons/userIcon-male';
 import { Ionicons } from '@expo/vector-icons';
+import StyleWrapper from './styleWrapper';
 
 var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAIAAAC0tAIdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAaSURBVChTY0jfaUY8GlWNiUZVYyLaqd5pBgBbpCym1BWunwAAAABJRU5ErkJggg==';
 
@@ -32,6 +33,7 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
   const { navigation } = other;
   //console.log({props});
   return (
+    <StyleWrapper>
     <Container>
       <ImageBackground style={styles.backgroundImage} source={{uri: base64Icon}}>
         <TouchableOpacity
@@ -44,7 +46,8 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
         >
           <Ionicons
             name="md-settings"
-            size={32} color="white"
+            size={32}
+            color="white"
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -67,7 +70,7 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
           >Johnathan Doe</Text>
           <Text style={{
             marginLeft: 15,
-            color: 'white'
+            //color: 'white'
           }}
           >johnathandoe33@ledjr.com</Text>
         </TouchableOpacity>
@@ -86,6 +89,7 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
           </TouchableOpacity>
       </ScrollView>
     </Container>
+    </StyleWrapper>
   );
 };
 
@@ -100,7 +104,7 @@ const styles = StyleSheet.create({
   menuItem: {
     margin: 16,
     fontWeight: 'bold',
-    color: 'rgba(0, 0, 0, .87)',
+    //color: 'rgba(0, 0, 0, .87)',
   }
 });
 
