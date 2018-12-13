@@ -13,7 +13,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import { Subscribe } from 'unstated';
 import GlobalStateContainer from '../state/globalStateContainer';
-import StyleWrapper from '../components/styleWrapper';
 
 export default class HomeScreen extends React.Component {
     render() {
@@ -38,42 +37,40 @@ export default class HomeScreen extends React.Component {
         );
 
         return (
-            <StyleWrapper>
-                <Container style={styles.container}>
-                    <Header
-                        navigation={this.props.navigation}
-                        title={'Settings'}
-                        hideSearch={true}
-                    />
-                    <View style={ styles.settingsView }>
-                        <View style={ styles.CircleShapeView }>
-                            <Ionicons
-                                name="md-settings"
-                                size={200} color="white"
-                            />
-                        </View>
-                        <ScrollView style={{
-                            width: '80%',
-                            marginTop: 20
-                        }}>
-                            <Subscribe to={[ GlobalStateContainer ]}>
-                                {({state, toggleProp}) => (
-                                    <FlatList
-                                        data={Object.keys(state.settings)
-                                            .map(key => ({key, state: state.settings[key]}))
-                                            .sort((a, b) => a.key.localeCompare(b.key))
-                                        }
-                                        renderItem={renderItem({
-                                            toggle: (i) => toggleProp(i.key)
-                                        })}
-                                        keyExtractor={item => item.key}
-                                    />
-                                )}
-                            </Subscribe>
-                        </ScrollView>
+            <Container style={styles.container}>
+                <Header
+                    navigation={this.props.navigation}
+                    title={'Settings'}
+                    hideSearch={true}
+                />
+                <View style={ styles.settingsView }>
+                    <View style={ styles.CircleShapeView }>
+                        <Ionicons
+                            name="md-settings"
+                            size={200} color="white"
+                        />
                     </View>
-                </Container>
-            </StyleWrapper>
+                    <ScrollView style={{
+                        width: '80%',
+                        marginTop: 20
+                    }}>
+                        <Subscribe to={[ GlobalStateContainer ]}>
+                            {({state, toggleProp}) => (
+                                <FlatList
+                                    data={Object.keys(state.settings)
+                                        .map(key => ({key, state: state.settings[key]}))
+                                        .sort((a, b) => a.key.localeCompare(b.key))
+                                    }
+                                    renderItem={renderItem({
+                                        toggle: (i) => toggleProp(i.key)
+                                    })}
+                                    keyExtractor={item => item.key}
+                                />
+                            )}
+                        </Subscribe>
+                    </ScrollView>
+                </View>
+            </Container>
         );
     }
 }

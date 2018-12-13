@@ -7,6 +7,8 @@ import {
 import Landscape from '../screens/landscape';
 import Portrait from '../screens/portrait';
 
+import StyleWrapper from '../components/styleWrapper';
+
 import Profile from '../screens/profile';
 import Settings from '../screens/settings';
 
@@ -74,6 +76,10 @@ const SwitchNavigator = createSwitchNavigator(
 
 export default class Navigator extends React.Component {
   render() {
-    return <SwitchNavigator />
+    return (
+      <StyleWrapper>
+        <SwitchNavigator />
+      </StyleWrapper>
+    );
   }
 }

@@ -34,7 +34,8 @@ export default class GlobalStateContainer extends Container {
             'Use internal browser': false,
             'Encrypt connection': true
         },
-        username: undefined,
+        username: 'Johnathan Doe',
+        email: 'johndoe@base.com',
         picture: undefined
     };
 
@@ -56,7 +57,7 @@ export default class GlobalStateContainer extends Container {
         const authUrl = `${auth0Domain}/authorize` + toQueryString({
             client_id: auth0ClientId,
             response_type: 'token',
-            scope: 'openid name profile',
+            scope: 'openid name email profile',
             redirect_uri,
         });
         console.log({ authUrl });
@@ -82,6 +83,7 @@ export default class GlobalStateContainer extends Container {
             username: undefined,
             picture: undefined,
             token: undefined,
+            email: undefined
         }));
         navigation.navigate('SignIn');
     }
@@ -102,9 +104,9 @@ export default class GlobalStateContainer extends Container {
         //     })
         const encodedToken = responseObj.id_token;
         const decodedToken = jwtDecoder(encodedToken);
-        const { name: username, picture } = decodedToken;
+        const { name: username, picture, email } = decodedToken;
         console.log({ decodedToken });
-        this.setState({ username, picture, token: decodedToken });
+        this.setState({ username, picture, email, token: decodedToken });
         navigation.navigate('AppNavigator');
     }
 }

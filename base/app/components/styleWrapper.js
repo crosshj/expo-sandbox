@@ -12,3 +12,5 @@ export default ({ children }) => (
         { children }
     </StyleProvider>
 );
+
+export const variables = commonColor;

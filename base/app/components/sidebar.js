@@ -1,13 +1,20 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, ScrollView, Image, Icon, ImageBackground, View, Platform, StatusBar, TouchableOpacity } from 'react-native';
+import { AsyncStorage, StyleSheet, ScrollView, Image, View, TouchableOpacity } from 'react-native';
 import { DrawerItems, SafeAreaView, NavigationActions, DrawerActions } from 'react-navigation';
-import { Container, Text } from 'native-base';
+import {
+  Container, Text
+} from 'native-base';
+
+
+import UserName from './userName';
+import UserEmail from './userEmail';
+import UserPicture from './userPicture';
 
 import userIconMale from './icons/userIcon-male';
 import { Ionicons } from '@expo/vector-icons';
-import StyleWrapper from './styleWrapper';
 
-var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAIAAAC0tAIdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAaSURBVChTY0jfaUY8GlWNiUZVYyLaqd5pBgBbpCym1BWunwAAAABJRU5ErkJggg==';
+import { variables } from './styleWrapper';
+
 
 async function signOut({ event, navigation }){
   event.persist();
@@ -33,9 +40,8 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
   const { navigation } = other;
   //console.log({props});
   return (
-    <StyleWrapper>
     <Container>
-      <ImageBackground style={styles.backgroundImage} source={{uri: base64Icon}}>
+      <View style={styles.backgroundImage}>
         <TouchableOpacity
           style={{
             position: 'absolute',
@@ -50,31 +56,27 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
             color="white"
           />
         </TouchableOpacity>
+
         <TouchableOpacity
           style={{
             marginRight: 45,
+            marginLeft: 15,
+            marginTop: 40
           }}
           onPress={(event) => profilePage({ event, navigation })}
         >
-          <Image style={{
-            width: 75,
-            height: 75,
-            marginTop: 40,
-            marginLeft: 10
-          }} source={{uri: userIconMale()}}/>
-          <Text style={{
-            marginLeft: 15,
-            fontWeight: 'bold',
-            color: 'white'
-          }}
-          >Johnathan Doe</Text>
-          <Text style={{
-            marginLeft: 15,
-            //color: 'white'
-          }}
-          >johnathandoe33@ledjr.com</Text>
+          <View style={{
+            marginTop: 10,
+            marginBottom: 10,
+          }}>
+            <UserPicture />
+          </View>
+
+          <UserName inverse bold />
+          <UserEmail inverse small />
+
         </TouchableOpacity>
-      </ImageBackground>
+      </View>
       <ScrollView>
           <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
             <DrawerItems
@@ -89,7 +91,6 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
           </TouchableOpacity>
       </ScrollView>
     </Container>
-    </StyleWrapper>
   );
 };
 
@@ -99,7 +100,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backgroundImage: {
-    width: '100%', height: 165
+    width: '100%',
+    height: 170,
+    backgroundColor: variables.toolbarDefaultBg
   },
   menuItem: {
     margin: 16,

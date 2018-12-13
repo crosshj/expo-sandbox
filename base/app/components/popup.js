@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, Platform, StatusBar, TouchableOpacity } from 'react-native';
-import Expo, { Asset, AppLoading } from 'expo';
+
 
 import Modal from "react-native-modal";
 

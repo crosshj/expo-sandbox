@@ -1,49 +1,40 @@
 import React from 'react';
-import { StyleSheet, Image, Platform, StatusBar, TouchableOpacity } from 'react-native';
-import Expo, { Asset, AppLoading } from 'expo';
-import Modal from "react-native-modal";
+import { StyleSheet, Platform, StatusBar, TouchableOpacity } from 'react-native';
 
 import {
-  StyleProvider, Spinner, Text, View, Content, Container, Header, Title, Button, Icon,
+  Spinner, Text, View, Content, Container, Header, Title, Button, Icon,
   InputGroup, Input, ListItem, List, Radio, CheckBox, Thumbnail, Card, CardItem,
   H3, Left, Right, Body, Footer, FooterTab
 } from 'native-base';
 
-import appJson from '../../app.json';
-
-import StyleWrapper from './styleWrapper';
-
 function HeaderComponent({ navigation, title, hideSearch }) {
   return (
-    <StyleWrapper>
-      <Header style={styles.header}>
-        <Left>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.openDrawer();
-            }}
-          >
-            <Icon name='menu' style={{ color: 'white', marginLeft: 15 }} />
-          </TouchableOpacity>
-        </Left>
-        <Body>
-          <Title>{title || 'Ledjr'}</Title>
-        </Body>
-        <Right>
-          <Button transparent>
-            {!hideSearch &&
-              <Icon name='search' />
-            }
-          </Button>
-        </Right>
-      </Header>
-    </StyleWrapper>
+    <Header style={styles.header}>
+      <Left>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.openDrawer();
+          }}
+        >
+          <Icon name='menu' style={{ color: 'white', marginLeft: 15 }} />
+        </TouchableOpacity>
+      </Left>
+      <Body>
+        <Title>{title || 'Ledjr'}</Title>
+      </Body>
+      <Right>
+        <Button transparent>
+          {!hideSearch &&
+            <Icon name='search' />
+          }
+        </Button>
+      </Right>
+    </Header>
   );
 }
 
 const styles = StyleSheet.create({
   header: {
-   // backgroundColor: appJson.expo.splash.backgroundColor,
     ...Platform.select({
       android: {
         paddingTop: StatusBar.currentHeight,

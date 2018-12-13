@@ -37,42 +37,39 @@ class LoadingScreen extends React.Component {
     SplashScreen.preventAutoHide();
   }
 
-  componentDidMount() {
-    this._cacheSplashAsync() // ask for resources
-      .then(() => this.setState({ splashReady: true })) // mark reasources as loaded
-      .catch(error => console.error(`Unexpected error thrown when loading:
-${error.stack}`));
-  }
+//   componentDidMount() {
+//     this._cacheSplashAsync() // ask for resources
+//       .then(() => this.setState({ splashReady: true })) // mark reasources as loaded
+//       .catch(error => console.error(`Unexpected error thrown when loading:
+// ${error.stack}`));
+//   }
 
-  _cacheSplashAsync = async () => {
-    console.log('--- _cacheSplashAsync');
-    const images = [
-      require('../../assets/splash.png'),
-      //require('../../assets/boo.gif'),
-    ];
-    const cacheImages = images.map(image => Asset.fromModule(image).downloadAsync());
-    return Promise.all(cacheImages)
-  }
+  // _cacheSplashAsync = async () => {
+  //   console.log('--- _cacheSplashAsync');
+  //   const images = [
+  //     require('../../assets/splash.png'),
+  //     //require('../../assets/boo.gif'),
+  //   ];
+  //   const cacheImages = images.map(image => Asset.fromModule(image).downloadAsync());
+  //   return Promise.all(cacheImages)
+  // }
 
 
   _cacheResourcesAsync = async () => {
     console.log('--- _cacheResourcesAsync');
     const images = [
-      require('../../assets/icon.png'),
+      //require('../../assets/icon.png'),
       //require('../../assets/splash.png'),
-      require('../../assets/appDefault.png'),
+      //require('../../assets/appDefault.png'),
     ];
 
-    const cacheImages = images.map((image) => {
-      return Asset.fromModule(image).downloadAsync();
-    });
 
-    await Promise.all([ delay(false, 100), ...cacheImages ]);
-
-    await Expo.Font.loadAsync({
-      Roboto: require("native-base/Fonts/Roboto.ttf"),
-      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
-    });
+    if(images.length){
+      const cacheImages = images.map((image) => {
+        return Asset.fromModule(image).downloadAsync();
+      });
+      await Promise.all([ delay(false, 100), ...cacheImages ]);
+    }
 
     await registerPush();
     this.setState({ appReady: true });
@@ -96,16 +93,16 @@ ${error.stack}`));
     //   appReady: this.state.appReady,
     // });
 
-    if(!this.state.splashReady){
-      return (
-        <AppLoading
-          //startAsync={this._cacheSplashAsync}
-          //onFinish={() => this.setState({ splashReady: true })}
-          //onError={console.warn}
-          autoHideSplash={false}
-        />
-      );
-    }
+    // if(!this.state.splashReady){
+    //   return (
+    //     <AppLoading
+    //       //startAsync={this._cacheSplashAsync}
+    //       //onFinish={() => this.setState({ splashReady: true })}
+    //       //onError={console.warn}
+    //       autoHideSplash={false}
+    //     />
+    //   );
+    // }
 
     // if(!this.state.splashReady){
     //   return null;

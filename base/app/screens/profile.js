@@ -6,10 +6,10 @@ import { Container, Title, Left, Icon, Right, Button, Body, Content, Text, Card,
 //import Popup from '../components/popup';
 //import ListView from '../components/listview';
 import Header from '../components/header';
-import userIconMale from '../components/icons/userIcon-male';
 
-import appJson from '../../app.json';
-import StyleWrapper from '../components/styleWrapper';
+import UserName from '../components/userName';
+import UserEmail from '../components/userEmail';
+import UserPicture from '../components/userPicture';
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
@@ -27,7 +27,6 @@ export default class HomeScreen extends React.Component {
 
     render() {
         return (
-            <StyleWrapper>
                 <Container style={styles.container}>
                     <Header
                         navigation={this.props.navigation}
@@ -35,19 +34,13 @@ export default class HomeScreen extends React.Component {
                         hideSearch={true}
                     />
                     <View style={ styles.userInfoView }>
-                        <Image style={{
-                            width: 200,
-                            height: 200,
-                            marginTop: 40,
-                            marginLeft: 10
-                        }} source={{uri: userIconMale()}}/>
-                        <Text style={{
-                            fontWeight: 'bold',
-                            fontSize: 20
-                        }}
-                        >Johnathan Doe</Text>
-                        <Text style={{}}
-                        >johnathandoe33@ledjr.com</Text>
+                        <UserPicture size={250}/>
+                    </View>
+                    <View style={ styles.userInfoView }>
+                        <UserName large bold/>
+                        <UserEmail />
+
+                        {/* TODO: make component for token */}
                         <Text style={{
                             marginTop: 40,
                             fontWeight: 'bold'
@@ -55,7 +48,6 @@ export default class HomeScreen extends React.Component {
                         <Text>{this.state.pushToken}</Text>
                     </View>
                 </Container>
-            </StyleWrapper>
         );
     }
 }
@@ -63,10 +55,10 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //backgroundColor: appJson.expo.splash.backgroundColor,
     },
     userInfoView: {
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 40,
     }
 });
