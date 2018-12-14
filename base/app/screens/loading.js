@@ -13,6 +13,15 @@ import {
   Container, Content
 } from 'native-base';
 
+/*
+PulseLoader, DotsLoader, TextLoader, BubblesLoader, CirclesLoader,
+RippleLoader, BreathingLoader, LinesLoader, MusicBarLoader, EatBeanLoader,
+DoubleCircleLoader, RotationCircleLoader, RotationHoleLoader,
+CirclesRotationScaleLoader, NineCubesLoader, LineDotsLoader,
+ColorDotsLoader
+*/
+import { RotationHoleLoader as Loader } from 'react-native-indicator';
+
 import { Asset, AppLoading, SplashScreen, Permissions, Notifications } from 'expo';
 
 import Logo from '../components/logo';
@@ -20,6 +29,9 @@ import Logo from '../components/logo';
 import { registerPush } from '../services/notifications'
 
 import appJson from '../../app.json';
+import { variables } from '../components/styleWrapper';
+
+import globalState from '../state/globalStateContainer';
 
 const delay = (shouldReject, timeout = 2000) =>
   new Promise((res, rej) =>
@@ -34,15 +46,15 @@ class LoadingScreen extends React.Component {
   constructor(props) {
     console.log({ color: appJson.expo.splash.backgroundColor });
     super(props);
-    SplashScreen.preventAutoHide();
+    SplashScreen.hide();
   }
 
-//   componentDidMount() {
-//     this._cacheSplashAsync() // ask for resources
-//       .then(() => this.setState({ splashReady: true })) // mark reasources as loaded
-//       .catch(error => console.error(`Unexpected error thrown when loading:
-// ${error.stack}`));
-//   }
+  componentDidMount() {
+    this._cacheResourcesAsync() // ask for resources
+      .then(() => this._navigateAway()) // mark reasources as loaded
+      .catch(error => console.error(`Unexpected error thrown when loading:
+${error.stack}`));
+  }
 
   // _cacheSplashAsync = async () => {
   //   console.log('--- _cacheSplashAsync');
@@ -71,14 +83,18 @@ class LoadingScreen extends React.Component {
       await Promise.all([ delay(false, 100), ...cacheImages ]);
     }
 
-    await registerPush();
-    this.setState({ appReady: true });
-    this._navigateAway();
+		await registerPush();
+		const global = globalState;
+		await global._init();
+
+    this.setState({ appReady: true, token: global.state.token });
+    //this._navigateAway();
   }
 
   _navigateAway = async () => {
     //const userToken = await AsyncStorage.getItem('userToken');
-    const userToken = false;
+		const userToken = this.state.token;
+		console.log({userToken});
 
     const navTo = userToken ? 'AppNavigator' : 'AuthNavigator';
     //const navTo = 'AppNavigator';
@@ -104,21 +120,48 @@ class LoadingScreen extends React.Component {
     //   );
     // }
 
-    // if(!this.state.splashReady){
+    // if(!this.state.appReady){
     //   return null;
     // }
 
     return (
       <Container style={styles.container}>
-        <Logo
+				<Content style={styles.content}>
+					<View
+						style={{
+							flex:1,
+							justifyContent: 'center',
+							alignItems: 'center',
+						}}
+					>
+						<Loader
+								size={80}
+								color={variables.textColor}
+								// betweenSpace={5}
+								// rotationSpeed={1600}
+								// strokeWidth={1}
+						/>
+					</View>
+					<Text
+              style={{
+                  fontSize: 30,
+                  color: variables.textColor,
+                  width: '100%',
+                  textAlign: 'center',
+                  //fontStyle: 'italic',
+                  marginBottom: 10
+              }}
+          >{appJson.expo.name}</Text>
+				</Content>
+        {/* <Logo
             onLoadEnd={() => {
               console.log('Image#onLoadEnd: hiding SplashScreen');
               SplashScreen.hide();
               this._cacheResourcesAsync();
             }}
-        />
-        <Content style={styles.content}>
-          {/* <Text
+        /> */}
+        {/* <Content style={styles.content}>
+          <Text
               style={{
                   fontSize: 30,
                   color: '#999',
@@ -127,8 +170,15 @@ class LoadingScreen extends React.Component {
                   fontStyle: 'italic',
                   marginBottom: 30
               }}
-          >Signing Out..</Text> */}
-        </Content>
+          >Hello</Text>
+				<RippleLoader
+						size={80}
+						color='white'
+						betweenSpace={5}
+						rotationSpeed={1600}
+						strokeWidth={3}
+				/>
+        </Content> */}
       </Container>
     );
 
@@ -161,18 +211,24 @@ class LoadingScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    marginTop: 'auto',
+		display: 'flex',
+		flex: 1,
+    //marginTop: 'auto',
     backgroundColor: appJson.expo.splash.backgroundColor,
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
-    width: '100%'
+    //height: '100%',
+    //width: '100%'
   },
   content: {
-    flex: 3,
-    minWidth: '80%',
-    marginBottom: 0,
+    //flex: 1,
+    //height: '100%',
+		//width: '100%'
+		//minWidth: '80%',
+		//marginBottom: 0,
+		//textAlign: 'center',
+		marginTop: '50%',
+		//marginBottom: '50%'
   },
 });
 

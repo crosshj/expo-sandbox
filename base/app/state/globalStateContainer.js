@@ -2,7 +2,8 @@ import { Container } from 'unstated';
 import { AuthSession } from 'expo';
 import jwtDecoder from 'jwt-decode';
 import {
-    Alert,
+		Alert,
+		AsyncStorage,
 } from 'react-native';
 
 // https://github.com/expo/auth0-example/blob/master/App.js
@@ -20,7 +21,16 @@ function toQueryString(params) {
         .join('&');
 }
 
-export default class GlobalStateContainer extends Container {
+function tryParse(string){
+	try {
+		return JSON.parse(string);
+	}
+	catch (e) {
+		return undefined;
+	}
+}
+
+class GlobalStateContainer extends Container {
     state = {
         isReady: true,
         isLoggedIn: true,
@@ -38,6 +48,21 @@ export default class GlobalStateContainer extends Container {
         email: 'johndoe@base.com',
         picture: undefined
     };
+
+		_init = async () => {
+			const encodedToken = await AsyncStorage.getItem('userToken');
+			if(!encodedToken) return;
+
+			const decodedToken = jwtDecoder(encodedToken);
+			const { name: username, picture, email } = decodedToken;
+
+			this.setState(state => ({
+				username: username || state.username,
+				email: email || state.email,
+				picture: picture || state.picture,
+				token: encodedToken
+			}));
+		}
 
     increment = () => {
         this.setState(state => ({
@@ -79,7 +104,8 @@ export default class GlobalStateContainer extends Container {
     }
 
     _logoutAuth0 = ({ navigation }) => {
-        this.setState(state => ({
+				AsyncStorage.setItem('userToken', '');
+				this.setState(state => ({
             username: undefined,
             picture: undefined,
             token: undefined,
@@ -102,11 +128,18 @@ export default class GlobalStateContainer extends Container {
         //             console.log('Something went wrong. ErrorCode: ', response.status);
         //         }
         //     })
-        const encodedToken = responseObj.id_token;
-        const decodedToken = jwtDecoder(encodedToken);
+				const encodedToken = responseObj.id_token;
+
+				// no need to await?
+				AsyncStorage.setItem('userToken', encodedToken);
+
+				const decodedToken = jwtDecoder(encodedToken);
         const { name: username, picture, email } = decodedToken;
         console.log({ decodedToken });
         this.setState({ username, picture, email, token: decodedToken });
         navigation.navigate('AppNavigator');
     }
 }
+
+// because singleton
+export default new GlobalStateContainer();
