@@ -44,7 +44,6 @@ class LoadingScreen extends React.Component {
 
 	constructor(props) {
 		super(props);
-		SplashScreen.hide();
 	}
 
 	componentDidMount() {
@@ -68,7 +67,9 @@ class LoadingScreen extends React.Component {
 			await Promise.all([delay(false, 100), ...cacheImages]);
 		}
 
-		await registerPush();
+		// no await?
+		// or only do this on request
+		// registerPush();
 
 		await global._init();
 
@@ -96,44 +97,48 @@ class LoadingScreen extends React.Component {
 
 	render() {
 		return (
-			<Container style={styles.container}>
-				<Content style={styles.content}>
-					<View
-						style={{
-							flex: 1,
-							justifyContent: 'center',
-							alignItems: 'center',
-						}}
-					>
-						<Loader
-							size={80}
-							color={variables.textColor}
-						// betweenSpace={5}
-						// rotationSpeed={1600}
-						// strokeWidth={1}
-						/>
-					</View>
-					<Text
-						style={{
-							fontSize: 30,
-							color: variables.textColor,
-							width: '100%',
-							textAlign: 'center',
-							//fontStyle: 'italic',
-							marginBottom: 10
-						}}
-					>{appJson.expo.name}</Text>
-				</Content>
-				{/* <Logo
-            onLoadEnd={() => {
-              console.log('Image#onLoadEnd: hiding SplashScreen');
-              SplashScreen.hide();
-              this._cacheResourcesAsync();
-            }}
-        /> */}
-			</Container>
+			<Container style={styles.container}></Container>
 		);
 	}
+		// return (
+		// 	<Container style={styles.container}>
+		// 		<Content style={styles.content}>
+		// 			<View
+		// 				style={{
+		// 					flex: 1,
+		// 					justifyContent: 'center',
+		// 					alignItems: 'center',
+		// 				}}
+		// 			>
+		// 				<Loader
+		// 					size={80}
+		// 					color={variables.textColor}
+		// 				// betweenSpace={5}
+		// 				// rotationSpeed={1600}
+		// 				// strokeWidth={1}
+		// 				/>
+		// 			</View>
+		// 			<Text
+		// 				style={{
+		// 					fontSize: 30,
+		// 					color: variables.textColor,
+		// 					width: '100%',
+		// 					textAlign: 'center',
+		// 					//fontStyle: 'italic',
+		// 					marginBottom: 10
+		// 				}}
+		// 			>{appJson.expo.name}</Text>
+		// 		</Content>
+		// 		{/* <Logo
+    //         onLoadEnd={() => {
+    //           console.log('Image#onLoadEnd: hiding SplashScreen');
+    //           SplashScreen.hide();
+    //           this._cacheResourcesAsync();
+    //         }}
+    //     /> */}
+		// 	</Container>
+		// );
+	// }
 }
 
 const styles = StyleSheet.create({

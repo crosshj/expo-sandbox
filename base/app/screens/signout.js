@@ -16,26 +16,21 @@ const delay = (shouldReject, timeout = 2000) =>
   new Promise((res, rej) =>
     setTimeout(shouldReject ? rej : res, timeout));
 
-async function signIn({ navigation }){
-    navigation.navigate('SignIn');
-}
-
-class HomeScreen extends React.Component {
+class SignOut extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             signedOut: false
         };
-        this.signOut(props);
+        this.props.signOut();
     }
 
-    async signOut(props){
+    // async signOut(props){
         // await AsyncStorage.clear();
-        await delay(false, 2000);
         //console.log({ signout: props.signOut.toString() })
-        props.signOut();
-        this.setState({ signedOut: true });
-    }
+        // props.signOut();
+				//this.setState({ signedOut: true });
+    // }
 
     render() {
         // if(!this.state.signedOut){
@@ -43,7 +38,7 @@ class HomeScreen extends React.Component {
         //         <AppLoading />
         //     );
         // }
-        const { navigation } = this.props;
+        //const { navigation } = this.props;
         return (
             <Container style={styles.container}>
                 <Logo />
@@ -80,7 +75,7 @@ import GlobalStateContainer from '../state/globalStateContainer';
 export default (props) => (
     <Subscribe to={[GlobalStateContainer]}>
         {({ state, _logoutAuth0 }) => (
-            <HomeScreen
+            <SignOut
                 { ...props }
                 state={state}
                 signOut={ () => _logoutAuth0(props) }

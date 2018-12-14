@@ -44,9 +44,10 @@ class GlobalStateContainer extends Container {
             'Use internal browser': false,
             'Encrypt connection': true
         },
-        username: 'Johnathan Doe',
-        email: 'johndoe@base.com',
-        picture: undefined
+        username: undefined,
+        email: undefined,
+				picture: undefined,
+				token: undefined
     };
 
 		_init = async () => {
@@ -77,7 +78,8 @@ class GlobalStateContainer extends Container {
     }
 
     _loginWithAuth0 = async ({ event, navigation }) => {
-        const redirect_uri = AuthSession.getRedirectUrl();
+				this.setState(state => ({ authLoading: true }));
+				const redirect_uri = AuthSession.getRedirectUrl();
         console.log(`Redirect URL (add this to Auth0): ${redirect_uri}`);
         const authUrl = `${auth0Domain}/authorize` + toQueryString({
             client_id: auth0ClientId,
@@ -111,7 +113,7 @@ class GlobalStateContainer extends Container {
             token: undefined,
             email: undefined
         }));
-        navigation.navigate('SignIn');
+        navigation.navigate('AuthNavigator');
     }
 
     handleParams = (responseObj, navigation) => {
@@ -136,7 +138,7 @@ class GlobalStateContainer extends Container {
 				const decodedToken = jwtDecoder(encodedToken);
         const { name: username, picture, email } = decodedToken;
         console.log({ decodedToken });
-        this.setState({ username, picture, email, token: decodedToken });
+        this.setState({ username, picture, email, token: decodedToken, authLoading: false });
         navigation.navigate('AppNavigator');
     }
 }
