@@ -16,10 +16,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { variables } from './styleWrapper';
 
 
-async function signOut({ event, navigation }){
-  event.persist();
-  navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignOut' }));
-}
+// async function signOut({ event, navigation }){
+//   event.persist();
+//   navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignOut' }));
+// }
 
 async function settingsPage({ event, navigation }){
   event.persist();
@@ -32,6 +32,11 @@ async function profilePage({ event, navigation }){
   navigation.navigate('Profile');
   navigation.dispatch(DrawerActions.closeDrawer());
 }
+
+
+
+import { Subscribe } from 'unstated';
+import GlobalStateContainer from '../state/globalStateContainer';
 
 const visibleItems = ['Portrait', 'Landscape'];
 const getVisible = item => visibleItems.includes(item.key);
@@ -84,11 +89,19 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
               {...other}
             />
           </SafeAreaView>
-          <TouchableOpacity onPress={(event) => signOut({ event, navigation })}>
-            <View>
-              <Text style={styles.menuItem}>Logout</Text>
-            </View>
-          </TouchableOpacity>
+          <Subscribe to={[ GlobalStateContainer ]}>
+						{({state, _logoutAuth0}) => (
+							<TouchableOpacity onPress={(event) => {
+								event.persist();
+								_logoutAuth0({ navigation });
+								//signOut({ event, navigation })
+							}}>
+								<View>
+									<Text style={styles.menuItem}>Logout</Text>
+								</View>
+							</TouchableOpacity>
+						)}
+					</Subscribe>
       </ScrollView>
     </Container>
   );

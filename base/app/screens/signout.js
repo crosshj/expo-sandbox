@@ -12,17 +12,17 @@ import {
 
 import appJson from '../../app.json';
 
-const delay = (shouldReject, timeout = 2000) =>
-  new Promise((res, rej) =>
-    setTimeout(shouldReject ? rej : res, timeout));
+// const delay = (shouldReject, timeout = 2000) =>
+//   new Promise((res, rej) =>
+//     setTimeout(shouldReject ? rej : res, timeout));
 
-class SignOut extends React.Component {
+export default class SignOut extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            signedOut: false
-        };
-        this.props.signOut();
+        // this.state = {
+        //     signedOut: false
+        // };
+        //this.props.signOut();
     }
 
     // async signOut(props){
@@ -69,20 +69,20 @@ class SignOut extends React.Component {
     }
 }
 
-import { Subscribe } from 'unstated';
-import GlobalStateContainer from '../state/globalStateContainer';
+// import { Subscribe } from 'unstated';
+// import GlobalStateContainer from '../state/globalStateContainer';
 
-export default (props) => (
-    <Subscribe to={[GlobalStateContainer]}>
-        {({ state, _logoutAuth0 }) => (
-            <SignOut
-                { ...props }
-                state={state}
-                signOut={ () => _logoutAuth0(props) }
-            />
-        )}
-    </Subscribe>
-);
+// export default (props) => (
+//     <Subscribe to={[GlobalStateContainer]}>
+//         {({ state, _logoutAuth0 }) => (
+//             <SignOut
+//                 { ...props }
+//                 state={state}
+//                 signOut={ () => _logoutAuth0(props) }
+//             />
+//         )}
+//     </Subscribe>
+// );
 
 
 // const styles = StyleSheet.create({

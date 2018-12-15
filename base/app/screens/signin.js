@@ -22,13 +22,14 @@ function Login({ navigation }) {
 	return (
 		<Subscribe to={[GlobalStateContainer]}>
 			{({ state, _loginWithAuth0 }) => {
-				if(state.token){
-					setTimeout(() => navigation.navigate('AppNavigator'), 0);
-					return <Container style={styles.container}></Container>
-				}
-				if(state.authLoading){
-					return <Container style={styles.container}></Container>
-				}
+				// if(state.token){
+				// 	setTimeout(() => navigation.navigate('AppNavigator'), 0);
+				// 	return <Container style={styles.container}></Container>
+				// }
+				// if(state.authLoading){
+				// 	return <Container style={styles.container}></Container>
+				// }
+				// const { signingOut } = state;
 				return (
 						<Container style={styles.container}>
 								<Logo />
@@ -40,6 +41,7 @@ function Login({ navigation }) {
 											style={styles.formButton}
 											bordered block
 											onPress={(event) => {
+												//if(signingOut){ return; }
 												_loginWithAuth0({ event, navigation });
 											}}
 										>

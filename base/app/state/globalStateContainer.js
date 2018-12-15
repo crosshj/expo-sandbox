@@ -6,6 +6,9 @@ import {
 		AsyncStorage,
 } from 'react-native';
 
+import { NavigationActions, DrawerActions } from 'react-navigation';
+
+
 // https://github.com/expo/auth0-example/blob/master/App.js
 // https://github.com/expo/auth0-example/issues/6
 
@@ -29,6 +32,17 @@ function tryParse(string){
 		return undefined;
 	}
 }
+
+// async function signOut({ event, navigation }){
+// 	await AsyncStorage.clear();
+// 	console.log({ signout: props.signOut.toString() })
+// 	props.signOut();
+// 	this.setState({ signedOut: true });
+// }
+
+const delay = (shouldReject, timeout = 2000) =>
+  new Promise((res, rej) =>
+    setTimeout(shouldReject ? rej : res, timeout));
 
 class GlobalStateContainer extends Container {
     state = {
@@ -79,6 +93,7 @@ class GlobalStateContainer extends Container {
 
     _loginWithAuth0 = async ({ event, navigation }) => {
 				this.setState(state => ({ authLoading: true }));
+
 				const redirect_uri = AuthSession.getRedirectUrl();
         console.log(`Redirect URL (add this to Auth0): ${redirect_uri}`);
         const authUrl = `${auth0Domain}/authorize` + toQueryString({
@@ -93,31 +108,19 @@ class GlobalStateContainer extends Container {
         });
 
         console.log({ result });
-        if (result.error || result.errorCode) {
+        if (result.error || result.errorCode || result.type !== 'success') {
             Alert.alert('Error', result.error_description
                 || result.errorCode
-                || 'something went wrong while logging in');
+								|| 'something went wrong while logging in');
+						this.setState({ authLoading: false });
             return;
         }
 
-        if (result.type === 'success') {
-            this.handleParams(result.params, navigation);
-        }
-    }
+        //if (result.type === 'success') {
+				//this.handleParams(result.params, navigation);
+				//}
 
-    _logoutAuth0 = ({ navigation }) => {
-				AsyncStorage.setItem('userToken', '');
-				this.setState(state => ({
-            username: undefined,
-            picture: undefined,
-            token: undefined,
-            email: undefined
-        }));
-        navigation.navigate('AuthNavigator');
-    }
-
-    handleParams = (responseObj, navigation) => {
-        // fetch(`${auth0Domain}/userinfo?access_token=${responseObj.access_token}`)
+				// fetch(`${auth0Domain}/userinfo?access_token=${responseObj.access_token}`)
         //     .then(response => {
         //         if (response.status === 200) {
         //             response.json().then(parsedResponse => {
@@ -130,7 +133,8 @@ class GlobalStateContainer extends Container {
         //             console.log('Something went wrong. ErrorCode: ', response.status);
         //         }
         //     })
-				const encodedToken = responseObj.id_token;
+
+				const encodedToken = result.params.id_token;
 
 				// no need to await?
 				AsyncStorage.setItem('userToken', encodedToken);
@@ -141,6 +145,24 @@ class GlobalStateContainer extends Container {
         this.setState({ username, picture, email, token: decodedToken, authLoading: false });
         navigation.navigate('AppNavigator');
     }
+
+    _logoutAuth0 = async ({ navigation }) => {
+			navigation.dispatch(DrawerActions.closeDrawer());
+			navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignOut' }));
+
+			this.setState(state => ({
+				username: undefined,
+				picture: undefined,
+				token: undefined,
+				email: undefined
+			}));
+
+			// notify server?  invalidate token?
+			await delay(false, 2000);
+
+			navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignIn' }));
+			AsyncStorage.setItem('userToken', '');
+		}
 }
 
 // because singleton
