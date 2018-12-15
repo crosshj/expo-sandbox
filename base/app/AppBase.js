@@ -18,20 +18,3 @@ export default class App extends React.Component {
 		);
 	}
 }
-
-/*
-
-    For this to truly function as a base project, need following passed to this module
-
-    navigator
-    theme
-    state
-
-    more? maybe?
-    components
-    screens
-    services
-
-
-
-*/
