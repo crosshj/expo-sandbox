@@ -14,7 +14,7 @@ import {
 
 import { Subscribe } from 'unstated';
 import GlobalStateContainer from '../state/globalStateContainer';
-import { variables } from '../theme';
+import theme from '../theme';
 
 function Login({ navigation }) {
 	//console.log('--- login page');
@@ -45,7 +45,7 @@ function Login({ navigation }) {
 												_loginWithAuth0({ event, navigation });
 											}}
 										>
-											<Text style={{ color: variables.textColor }}>Sign In / Sign Up</Text>
+											<Text style={{ color: theme.textColor }}>Sign In / Sign Up</Text>
 										</Button>
 									</Form>
 								</Content>
