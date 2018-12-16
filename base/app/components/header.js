@@ -20,7 +20,7 @@ function HeaderComponent({ navigation, title, hideSearch }) {
         </TouchableOpacity>
       </Left>
       <Body>
-        <Title>{title || 'Ledjr'}</Title>
+        <Title>{title || ''}</Title>
       </Body>
       <Right>
         <Button transparent>
