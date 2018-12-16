@@ -6,7 +6,7 @@ import {
     Text,
 } from 'native-base';
 
-import { variables } from './styleWrapper';
+import theme from '../theme';
 
 const Email = ({ inverse, bold, style, small }) => {
     const styles = {
@@ -14,7 +14,7 @@ const Email = ({ inverse, bold, style, small }) => {
             text: {
                 fontWeight: bold ? 'bold' : 'normal',
                 fontSize: small ? 10 : undefined,
-                color: inverse ? variables.titleFontColor : variables.textColor
+                color: inverse ? theme.titleFontColor : theme.textColor
             }
         },
         ...style

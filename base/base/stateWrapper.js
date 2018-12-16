@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider, Subscribe } from 'unstated';
+import unstated, { Provider } from 'unstated';
 
 const StateWrapper = ({ children, ...props }) => {
   return (
@@ -9,4 +9,7 @@ const StateWrapper = ({ children, ...props }) => {
   );
 };
 
-export default StateWrapper;
+export const component = StateWrapper;
+export const dependencies = [
+  { unstated }
+];

@@ -13,7 +13,7 @@ import UserPicture from './userPicture';
 import userIconMale from './icons/userIcon-male';
 import { Ionicons } from '@expo/vector-icons';
 
-import { variables } from './styleWrapper';
+import theme from '../theme';
 
 
 // async function signOut({ event, navigation }){
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     width: '100%',
     height: 170,
-    backgroundColor: variables.toolbarDefaultBg
+    backgroundColor: theme.toolbarDefaultBg
   },
   menuItem: {
     margin: 16,

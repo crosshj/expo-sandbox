@@ -1,0 +1,23 @@
+import React from 'react';
+
+import { component as StyleWrapper } from './styleWrapper';
+import { component as StateWrapper } from './stateWrapper';
+
+import { SplashScreen } from 'expo';
+
+const GetAppBase = ({
+	Theme, Navigator
+}) => {
+	SplashScreen.hide();
+
+	return () => (
+		<StateWrapper>
+			<StyleWrapper theme={Theme}>
+				<Navigator />
+			</StyleWrapper>
+		</StateWrapper>
+	);
+};
+
+export default GetAppBase;
+

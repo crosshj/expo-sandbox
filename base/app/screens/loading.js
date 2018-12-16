@@ -29,7 +29,6 @@ import Logo from '../components/logo';
 import { registerPush } from '../services/notifications'
 
 import appJson from '../../app.json';
-import { variables } from '../components/styleWrapper';
 
 import global from '../state/globalStateContainer';
 

@@ -1,26 +1,15 @@
-import React from 'react';
+import AppBase from './base';
 
-import Navigator from './navigator';
-import State from './state';
+import Navigator from './app/navigator';
+import Theme from './app/theme';
 
-import { SplashScreen } from 'expo';
+const App = AppBase({
+	Navigator, Theme
+});
 
-export default class App extends React.Component {
-	componentDidMount() {
-		SplashScreen.hide();
-	}
-
-	render() {
-		return (
-			<State>
-				<Navigator />
-			</State>
-		);
-	}
-}
+export default App;
 
 /*
-
     For this to truly function as a base project, need following passed to this module
 
     navigator
@@ -31,7 +20,5 @@ export default class App extends React.Component {
     components
     screens
     services
-
-
 
 */

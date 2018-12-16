@@ -2,8 +2,8 @@ import { Container } from 'unstated';
 import { AuthSession } from 'expo';
 import jwtDecoder from 'jwt-decode';
 import {
-		Alert,
-		AsyncStorage,
+    Alert,
+    AsyncStorage,
 } from 'react-native';
 
 import { NavigationActions, DrawerActions } from 'react-navigation';
@@ -24,13 +24,13 @@ function toQueryString(params) {
         .join('&');
 }
 
-function tryParse(string){
-	try {
-		return JSON.parse(string);
-	}
-	catch (e) {
-		return undefined;
-	}
+function tryParse(string) {
+    try {
+        return JSON.parse(string);
+    }
+    catch (e) {
+        return undefined;
+    }
 }
 
 // async function signOut({ event, navigation }){
@@ -41,8 +41,8 @@ function tryParse(string){
 // }
 
 const delay = (shouldReject, timeout = 2000) =>
-  new Promise((res, rej) =>
-    setTimeout(shouldReject ? rej : res, timeout));
+    new Promise((res, rej) =>
+        setTimeout(shouldReject ? rej : res, timeout));
 
 class GlobalStateContainer extends Container {
     state = {
@@ -60,24 +60,24 @@ class GlobalStateContainer extends Container {
         },
         username: undefined,
         email: undefined,
-				picture: undefined,
-				token: undefined
+        picture: undefined,
+        token: undefined
     };
 
-		_init = async () => {
-			const encodedToken = await AsyncStorage.getItem('userToken');
-			if(!encodedToken) return;
+    _init = async () => {
+        const encodedToken = await AsyncStorage.getItem('userToken');
+        if (!encodedToken) return;
 
-			const decodedToken = jwtDecoder(encodedToken);
-			const { name: username, picture, email } = decodedToken;
+        const decodedToken = jwtDecoder(encodedToken);
+        const { name: username, picture, email } = decodedToken;
 
-			this.setState(state => ({
-				username: username || state.username,
-				email: email || state.email,
-				picture: picture || state.picture,
-				token: encodedToken
-			}));
-		}
+        this.setState(state => ({
+            username: username || state.username,
+            email: email || state.email,
+            picture: picture || state.picture,
+            token: encodedToken
+        }));
+    }
 
     increment = () => {
         this.setState(state => ({
@@ -87,14 +87,14 @@ class GlobalStateContainer extends Container {
 
     toggleProp = (prop) => {
         this.setState(state => ({
-            settings: { ...state.settings, ...{ [prop]: !this.state.settings[prop] }}
+            settings: { ...state.settings, ...{ [prop]: !this.state.settings[prop] } }
         }));
     }
 
     _loginWithAuth0 = async ({ event, navigation }) => {
-				this.setState(state => ({ authLoading: true }));
+        this.setState(state => ({ authLoading: true }));
 
-				const redirect_uri = AuthSession.getRedirectUrl();
+        const redirect_uri = AuthSession.getRedirectUrl();
         console.log(`Redirect URL (add this to Auth0): ${redirect_uri}`);
         const authUrl = `${auth0Domain}/authorize` + toQueryString({
             client_id: auth0ClientId,
@@ -111,16 +111,16 @@ class GlobalStateContainer extends Container {
         if (result.error || result.errorCode || result.type !== 'success') {
             Alert.alert('Error', result.error_description
                 || result.errorCode
-								|| 'something went wrong while logging in');
-						this.setState({ authLoading: false });
+                || 'something went wrong while logging in');
+            this.setState({ authLoading: false });
             return;
         }
 
         //if (result.type === 'success') {
-				//this.handleParams(result.params, navigation);
-				//}
+        //this.handleParams(result.params, navigation);
+        //}
 
-				// fetch(`${auth0Domain}/userinfo?access_token=${responseObj.access_token}`)
+        // fetch(`${auth0Domain}/userinfo?access_token=${responseObj.access_token}`)
         //     .then(response => {
         //         if (response.status === 200) {
         //             response.json().then(parsedResponse => {
@@ -134,12 +134,12 @@ class GlobalStateContainer extends Container {
         //         }
         //     })
 
-				const encodedToken = result.params.id_token;
+        const encodedToken = result.params.id_token;
 
-				// no need to await?
-				AsyncStorage.setItem('userToken', encodedToken);
+        // no need to await?
+        AsyncStorage.setItem('userToken', encodedToken);
 
-				const decodedToken = jwtDecoder(encodedToken);
+        const decodedToken = jwtDecoder(encodedToken);
         const { name: username, picture, email } = decodedToken;
         console.log({ decodedToken });
         this.setState({ username, picture, email, token: decodedToken, authLoading: false });
@@ -147,22 +147,22 @@ class GlobalStateContainer extends Container {
     }
 
     _logoutAuth0 = async ({ navigation }) => {
-			navigation.dispatch(DrawerActions.closeDrawer());
-			navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignOut' }));
+        navigation.dispatch(DrawerActions.closeDrawer());
+        navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignOut' }));
 
-			this.setState(state => ({
-				username: undefined,
-				picture: undefined,
-				token: undefined,
-				email: undefined
-			}));
+        this.setState(state => ({
+            username: undefined,
+            picture: undefined,
+            token: undefined,
+            email: undefined
+        }));
 
-			// notify server?  invalidate token?
-			await delay(false, 2000);
+        // notify server?  invalidate token?
+        await delay(false, 2000);
 
-			navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignIn' }));
-			AsyncStorage.setItem('userToken', '');
-		}
+        navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignIn' }));
+        AsyncStorage.setItem('userToken', '');
+    }
 }
 
 // because singleton

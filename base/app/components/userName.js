@@ -6,7 +6,7 @@ import {
     Text,
 } from 'native-base';
 
-import { variables } from './styleWrapper';
+import theme from '../theme';
 
 const Username = ({ inverse, bold, large, style }) => {
     const styles = {
@@ -14,7 +14,7 @@ const Username = ({ inverse, bold, large, style }) => {
             text: {
                 fontSize: large ? 20 : undefined,
                 fontWeight: bold ? 'bold' : undefined,
-                color: inverse ? variables.titleFontColor : variables.textColor
+                color: inverse ? theme.titleFontColor : theme.textColor
             }
         },
         ...style

@@ -7,7 +7,6 @@ import {
 } from 'native-base';
 
 import userIconMale from './icons/userIcon-male';
-//import { variables } from './styleWrapper';
 
 const UserPicture = ({
     size = 75, small, large, square, circle = true, style

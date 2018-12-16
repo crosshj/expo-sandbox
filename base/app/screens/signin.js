@@ -14,7 +14,7 @@ import {
 
 import { Subscribe } from 'unstated';
 import GlobalStateContainer from '../state/globalStateContainer';
-import { variables } from '../components/styleWrapper';
+import { variables } from '../theme';
 
 function Login({ navigation }) {
 	//console.log('--- login page');
