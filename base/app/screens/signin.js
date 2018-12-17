@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 		marginBottom: 0,
 	},
 	formButton: {
-		borderColor: '#ddd',
+		borderColor: theme.textColor,
 		borderWidth: 10,
 		color: appJson.expo.splash.backgroundColor
 	}

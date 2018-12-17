@@ -5,65 +5,58 @@ import Expo, { Asset, AppLoading } from 'expo';
 import Logo from '../components/logo';
 
 import {
-  Spinner, Text, View, Content, Container, Header, Title, Button, Icon,
-  InputGroup, Input, ListItem, List, Radio, CheckBox, Thumbnail, Card, CardItem,
-  H3, Left, Right, Body, Footer, FooterTab, Form, Item
+    Spinner, Text, View, Content, Container, Header, Title, Button, Icon,
+    InputGroup, Input, ListItem, List, Radio, CheckBox, Thumbnail, Card, CardItem,
+    H3, Left, Right, Body, Footer, FooterTab, Form, Item
 } from 'native-base';
 
-const delay = (shouldReject, timeout = 2000) =>
-  new Promise((res, rej) =>
-    setTimeout(shouldReject ? rej : res, timeout));
+import appJson from '../../app.json';
+import theme from '../theme';
 
-async function signIn({ event, navigation }){
+const delay = (shouldReject, timeout = 2000) =>
+    new Promise((res, rej) =>
+        setTimeout(shouldReject ? rej : res, timeout));
+
+async function signIn({ event, navigation }) {
     event.persist()
     await AsyncStorage.setItem('userToken', 'abc');
     await delay(false, 2000);
     navigation.navigate('AppNavigator');
 }
 
-function Login({ navigation }){
-  return (
-    <Container style={styles.container}>
-        <Logo />
-        <Content style={styles.content}>
-            <Form style={{
-                marginTop: 20,
-            }}>
+function Login({ navigation }) {
+    return (
+        <Container style={styles.container}>
+            <Content contentContainerStyle={styles.content}>
+                <Logo />
                 <Button
-                    rounded block
                     style={styles.formButton}
+                    rounded block
                     onPress={(event) => signIn({ event, navigation })}
                 >
-                    <Text>Log in / Register</Text>
+                    <Text style={{ color: theme.inverseTextColor }}>Log in / Register</Text>
                 </Button>
-            </Form>
-        </Content>
-    </Container>
-  );
+            </Content>
+        </Container>
+    );
 }
 
 const styles = StyleSheet.create({
-  formButton: {
-      backgroundColor: '#78c263'
-  },
-  container: {
-    display: 'flex',
-    marginTop: 'auto',
-    backgroundColor: "white",
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    height: '100%',
-  },
-  content: {
-    flex: 3,
-    minWidth: '80%',
-    marginBottom: 0,
-  },
-  footer: {
-      marginTop: 'auto',
-      flex: 1,
-      maxHeight: 80,
-  }
+    container: {
+        alignItems: 'center',
+    },
+    content: {
+        marginTop: 110,
+        marginBottom: 'auto',
+        justifyContent: 'center',
+    },
+    formButton: {
+        backgroundColor: '#78c263',
+        marginTop: 100,
+        borderWidth: 0,
+        borderColor: theme.inverseTextColor,
+        color: theme.inverseTextColor
+    }
 });
 
 module.exports = Login;

@@ -51,7 +51,8 @@ const AppNavigator = createDrawerNavigator(
       iconContainerStyle: {
         opacity: 1
       }
-    }
+    },
+    initialRouteName: 'Dashboard',
   }
 );
 

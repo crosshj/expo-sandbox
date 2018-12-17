@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleSheet, Image, View, Platform, StatusBar, TouchableOpacity } from 'react-native';
-import logoURI from './icons/logo';
+//import logoURI from './icons/logo';
+const logo = require('../../assets/logo.png');
 
 function Logo(){
     return(
         <View style={styles.container}>
             <Image
-                source={{ uri: logoURI() }}
+                //source={{ uri: logoURI() }}
+                source={logo}
                 resizeMode='contain'
                 style={styles.image}
             />
@@ -16,22 +18,17 @@ function Logo(){
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        //flex: 1,
+        //alignItems: 'center',
+        //justifyContent: 'flex-end',
+        height: 100
     },
     image: {
-        width: 300,
-        height: 100,
-        marginTop: 110,
-        flex: 1,
-        marginBottom: 0
-    },
-    text: {
-        color: 'white',
-        fontWeight: 'bold',
-        backgroundColor: 'transparent',
-        marginTop: 20,
+        width: 200,
+        //height: 100,
+        //marginTop: 0,
+        //flex: 1,
+        //marginBottom: 0
     },
 });
 

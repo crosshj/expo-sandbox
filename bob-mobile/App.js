@@ -1,14 +1,10 @@
-import React from 'react';
+import AppBase from './base';
 
 import Navigator from './app/navigator';
-import State from './app/state';
+import Theme from './app/theme';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <State>
-        <Navigator />
-      </State>
-    );
-  }
-}
+const App = AppBase({
+	Navigator, Theme
+});
+
+export default App;
