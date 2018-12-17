@@ -53,18 +53,18 @@ class LoadingScreen extends React.Component {
 
 	_cacheResourcesAsync = async () => {
 		console.log('--- _cacheResourcesAsync');
-		// const images = [
+		const images = [
 			//require('../../assets/icon.png'),
-			//require('../../assets/splash.png'),
-			//require('../../assets/appDefault.png'),
-		// ];
+			require('../../assets/splash.png'),
+			require('../../assets/logo.png'),
+		];
 
-		// if (images.length) {
-		// 	const cacheImages = images.map((image) => {
-		// 		return Asset.fromModule(image).downloadAsync();
-		// 	});
-		// 	await Promise.all([delay(false, 100), ...cacheImages]);
-		// }
+		if (images.length) {
+			const cacheImages = images.map((image) => {
+				return Asset.fromModule(image).downloadAsync();
+			});
+			await Promise.all([delay(false, 100), ...cacheImages]);
+		}
 
 		// no await?
 		// or only do this on request
