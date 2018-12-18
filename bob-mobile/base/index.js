@@ -4,6 +4,10 @@ import { component as StyleWrapper } from './styleWrapper';
 import { component as StateWrapper } from './stateWrapper';
 import AuthStateContainer from './authStateContainer';
 
+import UserEmail from './userEmail';
+import UserName from './userName';
+import UserPicture from './userPicture';
+
 import { SplashScreen } from 'expo';
 
 const GetAppBase = ({
@@ -21,4 +25,7 @@ const GetAppBase = ({
 };
 
 export default GetAppBase;
-export { AuthStateContainer };
+export {
+	AuthStateContainer,
+	UserEmail, UserName, UserPicture
+};

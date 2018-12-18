@@ -10,7 +10,12 @@ var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQ
 //#1a4e63 ^^^
 
 import { Subscribe } from 'unstated';
-import { AuthStateContainer } from '../../base';
+import {
+  AuthStateContainer,
+  UserEmail, UserName, UserPicture
+} from '../../base';
+
+import theme from '../theme';
 
 async function settingsPage({ event, navigation }){
   event.persist();
@@ -36,7 +41,6 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
         <TouchableOpacity onPress={(event) => {
           event.persist();
           logout({ navigation });
-          //signOut({ event, navigation })
         }}>
           <View>
             <Text style={styles.menuItem}>Logout</Text>
@@ -62,13 +66,13 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
             size={32} color="white"
           />
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             marginRight: 45,
           }}
           onPress={(event) => profilePage({ event, navigation })}
-        >
-          <Image style={{
+        > */}
+          {/* <Image style={{
             width: 75,
             height: 75,
             marginTop: 40,
@@ -84,7 +88,25 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
             marginLeft: 15,
             color: 'white'
           }}
-          >daytrader@bob.com</Text>
+          >daytrader@bob.com</Text> */}
+        <TouchableOpacity
+          style={{
+            marginRight: 45,
+            marginLeft: 15,
+            marginTop: 40
+          }}
+          onPress={(event) => profilePage({ event, navigation })}
+        >
+          <View style={{
+            marginTop: 10,
+            marginBottom: 10,
+          }}>
+            <UserPicture theme={theme} />
+          </View>
+
+          <UserName inverse bold theme={theme} />
+          <UserEmail inverse small theme={theme} />
+
         </TouchableOpacity>
       </ImageBackground>
       <ScrollView>
@@ -111,7 +133,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backgroundImage: {
-    width: '100%', height: 165
+    width: '100%',
+    height: 180,
   },
   menuItem: {
     margin: 16,

@@ -19,8 +19,8 @@ import SideBar from '../components/sidebar';
 
 //import { html, script } from '../components/iframeWrapper';
 
-// const uri = 'https://test.letbob.com/chartiq/chart.html#AAPL';
-const uri = 'http://192.168.1.95:3000/mobileChart/';
+const uri = 'https://test.letbob.com/chartiq/chart.html#AAPL';
+//const uri = 'http://192.168.1.95:3000/mobileChart/';
 
 import WebView from '../components/niceWebview';
 
@@ -52,7 +52,7 @@ const AppNavigator = createDrawerNavigator(
         opacity: 1
       }
     },
-    initialRouteName: 'Dashboard',
+    initialRouteName: 'Profile',
   }
 );
 

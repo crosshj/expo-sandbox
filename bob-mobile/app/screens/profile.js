@@ -6,7 +6,10 @@ import { Container, Title, Left, Icon, Right, Button, Body, Content, Text, Card,
 //import Popup from '../components/popup';
 //import ListView from '../components/listview';
 import Header from '../components/header';
-import userIconMale from '../components/icons/userIcon-male';
+//import userIconMale from '../components/icons/userIcon-male';
+
+import { UserName, UserEmail, UserPicture } from '../../base';
+import theme from '../theme';
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
@@ -30,7 +33,7 @@ export default class HomeScreen extends React.Component {
                     title={'Profile'}
                     hideSearch={true}
                 />
-                <View style={ styles.userInfoView }>
+                {/* <View style={ styles.userInfoView }>
                     <Image style={{
                         width: 200,
                         height: 200,
@@ -49,6 +52,20 @@ export default class HomeScreen extends React.Component {
                         fontWeight: 'bold'
                     }}>Push token:</Text>
                     <Text>{this.state.pushToken}</Text>
+                </View> */}
+                <View style={styles.userInfoView}>
+                    <UserPicture size={250} theme={theme} />
+                </View>
+                <View style={styles.userInfoView}>
+                    <UserName large bold theme={theme} />
+                    <UserEmail theme={theme} />
+
+                    {/* TODO: make component for token */}
+                    <Text style={{
+                        marginTop: 40,
+                        fontWeight: 'bold'
+                    }}>{ this.state.pushToken && 'Push token:'}</Text>
+                    <Text>{this.state.pushToken}</Text>
                 </View>
             </Container>
         );
@@ -62,5 +79,6 @@ const styles = StyleSheet.create({
     userInfoView: {
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 40,
     }
 });
