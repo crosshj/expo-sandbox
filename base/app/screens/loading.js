@@ -30,7 +30,7 @@ import { registerPush } from '../services/notifications'
 
 import appJson from '../../app.json';
 
-import AuthStateContainer from '../../base/authStateContainer';
+import { AuthStateContainer } from '../../base';
 
 const delay = (shouldReject, timeout = 2000) =>
 	new Promise((res, rej) =>

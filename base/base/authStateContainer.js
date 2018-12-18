@@ -15,8 +15,8 @@ import { NavigationActions, DrawerActions } from 'react-navigation';
 // ALTERNATIVE: https://github.com/auth0-samples/react-native-embedded-login/blob/master/actions/auth/index.js
 
 
-const auth0ClientId = 'Jmk1cLExXAy9PRe9dztRP4WfmEc43MRv'; //it's okay to share this publicly
-const auth0Domain = 'https://crosshj.auth0.com';
+let auth0ClientId = undefined;
+let auth0Domain = undefined;
 
 function toQueryString(params) {
     return '?' + Object.entries(params)
@@ -45,7 +45,10 @@ class AuthStateContainer extends Container {
         token: undefined
     };
 
-    init = async () => {
+    init = async ({ clientId, domain }) => {
+        auth0ClientId = clientId || auth0ClientId;
+        auth0Domain = domain || auth0Domain;
+
         const encodedToken = await AsyncStorage.getItem('userToken');
         if (!encodedToken) return;
 

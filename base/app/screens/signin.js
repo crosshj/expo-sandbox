@@ -13,7 +13,7 @@ import {
 } from 'native-base';
 
 import { Subscribe } from 'unstated';
-import AuthStateContainer from '../../base/authStateContainer';
+import { AuthStateContainer } from '../../base';
 import theme from '../theme';
 
 function Login({ navigation }) {

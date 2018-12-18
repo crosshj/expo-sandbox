@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { Subscribe } from 'unstated';
-import AuthStateContainer from '../../base/authStateContainer';
+import { AuthStateContainer } from '../../base';
+
 import {
     Thumbnail,
 } from 'native-base';
