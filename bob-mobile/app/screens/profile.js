@@ -33,26 +33,6 @@ export default class HomeScreen extends React.Component {
                     title={'Profile'}
                     hideSearch={true}
                 />
-                {/* <View style={ styles.userInfoView }>
-                    <Image style={{
-                        width: 200,
-                        height: 200,
-                        marginTop: 40,
-                        marginLeft: 10
-                    }} source={{uri: userIconMale()}}/>
-                    <Text style={{
-                        fontWeight: 'bold',
-                        fontSize: 20
-                    }}
-                    >Day Trader</Text>
-                    <Text style={{}}
-                    >daytrader@bob.com</Text>
-                    <Text style={{
-                        marginTop: 40,
-                        fontWeight: 'bold'
-                    }}>Push token:</Text>
-                    <Text>{this.state.pushToken}</Text>
-                </View> */}
                 <View style={styles.userInfoView}>
                     <UserPicture size={250} theme={theme} />
                 </View>
