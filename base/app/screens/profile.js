@@ -27,27 +27,27 @@ export default class HomeScreen extends React.Component {
 
     render() {
         return (
-                <Container style={styles.container}>
-                    <Header
-                        navigation={this.props.navigation}
-                        title={'Profile'}
-                        hideSearch={true}
-                    />
-                    <View style={ styles.userInfoView }>
-                        <UserPicture size={250}/>
-                    </View>
-                    <View style={ styles.userInfoView }>
-                        <UserName large bold/>
-                        <UserEmail />
+            <Container style={styles.container}>
+                <Header
+                    navigation={this.props.navigation}
+                    title={'Profile'}
+                    hideSearch={true}
+                />
+                <View style={styles.userInfoView}>
+                    <UserPicture size={250} />
+                </View>
+                <View style={styles.userInfoView}>
+                    <UserName large bold />
+                    <UserEmail />
 
-                        {/* TODO: make component for token */}
-                        <Text style={{
-                            marginTop: 40,
-                            fontWeight: 'bold'
-                        }}>Push token:</Text>
-                        <Text>{this.state.pushToken}</Text>
-                    </View>
-                </Container>
+                    {/* TODO: make component for token */}
+                    <Text style={{
+                        marginTop: 40,
+                        fontWeight: 'bold'
+                    }}>{this.state.pushToken && 'Push token:'}</Text>
+                    <Text>{this.state.pushToken}</Text>
+                </View>
+            </Container>
         );
     }
 }
