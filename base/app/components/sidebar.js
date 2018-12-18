@@ -36,7 +36,7 @@ async function profilePage({ event, navigation }){
 
 
 import { Subscribe } from 'unstated';
-import AuthStateContainer from '../../base/authStateContainer';
+import { AuthStateContainer } from '../../base';
 
 const visibleItems = ['Portrait', 'Landscape'];
 const getVisible = item => visibleItems.includes(item.key);
@@ -94,7 +94,6 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
 							<TouchableOpacity onPress={(event) => {
 								event.persist();
 								logout({ navigation });
-								//signOut({ event, navigation })
 							}}>
 								<View>
 									<Text style={styles.menuItem}>Logout</Text>

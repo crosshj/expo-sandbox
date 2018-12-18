@@ -10,32 +10,31 @@ import {
     H3, Left, Right, Body, Footer, FooterTab, Form, Item
 } from 'native-base';
 
-import appJson from '../../app.json';
 import theme from '../theme';
 
-const delay = (shouldReject, timeout = 2000) =>
-    new Promise((res, rej) =>
-        setTimeout(shouldReject ? rej : res, timeout));
-
-async function signIn({ event, navigation }) {
-    event.persist()
-    await AsyncStorage.setItem('userToken', 'abc');
-    await delay(false, 2000);
-    navigation.navigate('AppNavigator');
-}
+import { Subscribe } from 'unstated';
+import { AuthStateContainer } from '../../base';
 
 function Login({ navigation }) {
+    const LoginButton = ({ style }) => (
+        <Subscribe to={[AuthStateContainer]}>
+            {({ state, login }) => (
+                <Button
+                    style={styles.formButton}
+                    rounded block
+                    onPress={(event) => login({ event, navigation })}
+                >
+                    <Text style={{ color: theme.inverseTextColor }}>Log in / Register</Text>
+                </Button>
+            )}
+        </Subscribe>
+    );
+
     return (
         <Container style={styles.container}>
             <Content contentContainerStyle={styles.content}>
                 <Logo />
-                <Button
-                    style={styles.formButton}
-                    rounded block
-                    onPress={(event) => signIn({ event, navigation })}
-                >
-                    <Text style={{ color: theme.inverseTextColor }}>Log in / Register</Text>
-                </Button>
+                <LoginButton />
             </Content>
         </Container>
     );

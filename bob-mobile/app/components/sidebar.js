@@ -9,10 +9,8 @@ import { Ionicons } from '@expo/vector-icons';
 var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xMzQDW3oAAAAMSURBVBhXY5DySwYAAVEAzItjNDcAAAAASUVORK5CYII=';
 //#1a4e63 ^^^
 
-async function signOut({ event, navigation }){
-  event.persist();
-  navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignOut' }));
-}
+import { Subscribe } from 'unstated';
+import { AuthStateContainer } from '../../base';
 
 async function settingsPage({ event, navigation }){
   event.persist();
@@ -31,7 +29,23 @@ const getVisible = item => visibleItems.includes(item.key);
 
 const CustomDrawerContentComponent = ({items, ...other}) => {
   const { navigation } = other;
-  //console.log({props});
+
+  const LogoutButton = () => (
+    <Subscribe to={[ AuthStateContainer ]}>
+      {({state, logout}) => (
+        <TouchableOpacity onPress={(event) => {
+          event.persist();
+          logout({ navigation });
+          //signOut({ event, navigation })
+        }}>
+          <View>
+            <Text style={styles.menuItem}>Logout</Text>
+          </View>
+        </TouchableOpacity>
+      )}
+    </Subscribe>
+  );
+
   return (
     <Container>
       <ImageBackground style={styles.backgroundImage} source={{uri: base64Icon}}>
@@ -80,11 +94,12 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
               {...other}
             />
           </SafeAreaView>
-          <TouchableOpacity onPress={(event) => signOut({ event, navigation })}>
+          {/* <TouchableOpacity onPress={(event) => signOut({ event, navigation })}>
             <View>
               <Text style={styles.menuItem}>Logout</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <LogoutButton />
       </ScrollView>
     </Container>
   );

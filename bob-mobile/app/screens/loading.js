@@ -30,7 +30,7 @@ import { registerPush } from '../services/notifications'
 
 import appJson from '../../app.json';
 
-import global from '../state/globalStateContainer';
+import { AuthStateContainer } from '../../base/index';
 
 const delay = (shouldReject, timeout = 2000) =>
 	new Promise((res, rej) =>
@@ -52,7 +52,7 @@ class LoadingScreen extends React.Component {
 	}
 
 	_cacheResourcesAsync = async () => {
-		console.log('--- _cacheResourcesAsync');
+		//console.log('--- _cacheResourcesAsync');
 		const images = [
 			//require('../../assets/icon.png'),
 			require('../../assets/splash.png'),
@@ -70,17 +70,23 @@ class LoadingScreen extends React.Component {
 		// or only do this on request
 		// registerPush();
 
-		await global._init();
+		const clientId = 'Jmk1cLExXAy9PRe9dztRP4WfmEc43MRv'; //it's okay to share this publicly
+		const domain = 'https://crosshj.auth0.com';
+		await AuthStateContainer.init({
+			clientId, domain
+		});
 
-		this.setState({ token: global.state.token });
+		//console.log({ authState: AuthStateContainer.state })
+
+		this.setState({ token: AuthStateContainer.state.token });
 	}
 
 	_navigateAway = async () => {
 		const userToken = this.state.token;
-		console.log({ userToken });
+		//console.log({ userToken });
 
 		const navTo = userToken ? 'AppNavigator' : 'AuthNavigator';
-		console.log(`--- will navigate away from loading to ${navTo}!!`);
+		//console.log(`--- will navigate away from loading to ${navTo}!!`);
 		this.props.navigation.navigate(navTo);
 	}
 

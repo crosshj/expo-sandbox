@@ -2,6 +2,7 @@ import React from 'react';
 
 import { component as StyleWrapper } from './styleWrapper';
 import { component as StateWrapper } from './stateWrapper';
+import AuthStateContainer from './authStateContainer';
 
 import { SplashScreen } from 'expo';
 
@@ -20,4 +21,4 @@ const GetAppBase = ({
 };
 
 export default GetAppBase;
-
+export { AuthStateContainer };
