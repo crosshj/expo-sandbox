@@ -13,15 +13,15 @@ import {
 } from 'native-base';
 
 import { Subscribe } from 'unstated';
-import GlobalStateContainer from '../state/globalStateContainer';
+import AuthStateContainer from '../../base/authStateContainer';
 import theme from '../theme';
 
 function Login({ navigation }) {
 	//console.log('--- login page');
 
 	return (
-		<Subscribe to={[GlobalStateContainer]}>
-			{({ state, _loginWithAuth0 }) => {
+		<Subscribe to={[AuthStateContainer]}>
+			{({ state, login }) => {
 				// if(state.token){
 				// 	setTimeout(() => navigation.navigate('AppNavigator'), 0);
 				// 	return <Container style={styles.container}></Container>
@@ -42,7 +42,7 @@ function Login({ navigation }) {
 											bordered block
 											onPress={(event) => {
 												//if(signingOut){ return; }
-												_loginWithAuth0({ event, navigation });
+												login({ event, navigation });
 											}}
 										>
 											<Text style={{ color: theme.textColor }}>Sign In / Sign Up</Text>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Subscribe } from 'unstated';
-import GlobalStateContainer from '../state/globalStateContainer';
+import AuthStateContainer from '../../base/authStateContainer';
 import {
     Text,
 } from 'native-base';
@@ -21,7 +21,7 @@ const Email = ({ inverse, bold, style, small }) => {
     };
 
     return (
-        <Subscribe to={[ GlobalStateContainer ]}>
+        <Subscribe to={[ AuthStateContainer ]}>
             {({ state }) => (
                 <Text style={styles.text}>{ state.email }</Text>
             )}

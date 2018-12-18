@@ -2,9 +2,6 @@ import React from 'react';
 import { View, WebView, Text, ActivityIndicator } from 'react-native';
 import { RippleLoader } from 'react-native-indicator';
 
-import { Subscribe } from 'unstated';
-import GlobalStateContainer from '../state/globalStateContainer';
-
 const LoadingPage = ({ loading, offset }) => {
     return loading
     ? <View

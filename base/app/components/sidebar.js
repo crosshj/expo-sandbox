@@ -36,7 +36,7 @@ async function profilePage({ event, navigation }){
 
 
 import { Subscribe } from 'unstated';
-import GlobalStateContainer from '../state/globalStateContainer';
+import AuthStateContainer from '../../base/authStateContainer';
 
 const visibleItems = ['Portrait', 'Landscape'];
 const getVisible = item => visibleItems.includes(item.key);
@@ -89,11 +89,11 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
               {...other}
             />
           </SafeAreaView>
-          <Subscribe to={[ GlobalStateContainer ]}>
-						{({state, _logoutAuth0}) => (
+          <Subscribe to={[ AuthStateContainer ]}>
+						{({state, logout}) => (
 							<TouchableOpacity onPress={(event) => {
 								event.persist();
-								_logoutAuth0({ navigation });
+								logout({ navigation });
 								//signOut({ event, navigation })
 							}}>
 								<View>

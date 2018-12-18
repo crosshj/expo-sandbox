@@ -30,7 +30,7 @@ import { registerPush } from '../services/notifications'
 
 import appJson from '../../app.json';
 
-import global from '../state/globalStateContainer';
+import AuthStateContainer from '../../base/authStateContainer';
 
 const delay = (shouldReject, timeout = 2000) =>
 	new Promise((res, rej) =>
@@ -70,9 +70,9 @@ class LoadingScreen extends React.Component {
 		// or only do this on request
 		// registerPush();
 
-		await global._init();
+		await AuthStateContainer.init();
 
-		this.setState({ token: global.state.token });
+		this.setState({ token: AuthStateContainer.state.token });
 	}
 
 	_navigateAway = async () => {

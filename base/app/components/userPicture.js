@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Subscribe } from 'unstated';
-import GlobalStateContainer from '../state/globalStateContainer';
+import AuthStateContainer from '../../base/authStateContainer';
 import {
     Thumbnail,
 } from 'native-base';
@@ -23,7 +23,7 @@ const UserPicture = ({
     };
 
     return (
-        <Subscribe to={[ GlobalStateContainer ]}>
+        <Subscribe to={[ AuthStateContainer ]}>
             {({ state }) => (
                 <Thumbnail circle
                     style={styles.picture}
