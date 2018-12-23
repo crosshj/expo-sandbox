@@ -29,7 +29,7 @@ class GlobalStateContainer extends Container {
 
     _init = async () => {
         const encodedToken = await AsyncStorage.getItem('userToken');
-        console.log({ encodedToken });
+        //console.log({ encodedToken });
         if (!encodedToken) return;
 
         var decodedToken = undefined;

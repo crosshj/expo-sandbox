@@ -70,8 +70,12 @@ class LoadingScreen extends React.Component {
 		// or only do this on request
 		// registerPush();
 
-		const clientId = 'Jmk1cLExXAy9PRe9dztRP4WfmEc43MRv'; //it's okay to share this publicly
-		const domain = 'https://crosshj.auth0.com';
+		// const clientId = 'Jmk1cLExXAy9PRe9dztRP4WfmEc43MRv'; //it's okay to share this publicly
+		// const domain = 'https://crosshj.auth0.com';
+
+		const clientId = 'ofS6Hw0H0NH3sSPnk9GfKMVdXPLRmxI4'; //it's okay to share this publicly
+		const domain = 'https://daytradingbob.auth0.com';
+
 		await AuthStateContainer.init({
 			clientId, domain
 		});

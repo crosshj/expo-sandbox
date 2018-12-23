@@ -52,7 +52,12 @@ class AuthStateContainer extends Container {
         const encodedToken = await AsyncStorage.getItem('userToken');
         if (!encodedToken) return;
 
-        const decodedToken = jwtDecoder(encodedToken);
+        var decodedToken = undefined;
+        try {
+            decodedToken = jwtDecoder(encodedToken);
+        } catch(e) {
+            decodedToken = {};
+        }
         const { name: username, picture, email } = decodedToken;
 
         this.setState(state => ({
@@ -66,15 +71,37 @@ class AuthStateContainer extends Container {
     login = async ({ event, navigation }) => {
         this.setState(state => ({ authLoading: true }));
 
+
+        // 'https://daytradingbob.auth0.com/authorize?
+        //client_id=${clientID}
+        //&response_type=token%20id_token
+        //&redirect_uri=https%3A%2F%2Ftest.letbob.com%2Fcallback
+        //&scope=openid%20profile
+        //&audience=https%3A%2F%2Fdaytradingbob.auth0.com%2Fuserinfo
+        //&state=fF7Fzmqb9FvP.SrbDGK33TrxfXyahm89
+        //&nonce=vrxzJzs-hhfsOr33yqkz3AaOMqlfIxsU
+        //&auth0Client=eyJuYW1lIjoiYXV0aDAuanMiLCJ2ZXJzaW9uIjoiOS42LjEifQ%3D%3D');
+        const audience = 'https://daytradingbob.auth0.com/userinfo';
+
         const redirect_uri = AuthSession.getRedirectUrl();
+        //const redirect_uri = 'https://test.letbob.com/callback';
         //console.log(`Redirect URL (add this to Auth0): ${redirect_uri}`);
+
+        const nonce = 'vrxzJzs-hhfsOr33yqkz3AaOMqlfIxsU';
+
+        //TODO: ^^^ nonce needs to be generated
+        //probably should be using https://auth0.com/docs/libraries/auth0js/
+
+
         const authUrl = `${auth0Domain}/authorize` + toQueryString({
             client_id: auth0ClientId,
-            response_type: 'token',
-            scope: 'openid name email profile',
+            response_type: 'id_token token',
+            scope: 'openid profile email name',
+            audience,
+            nonce,
             redirect_uri,
         });
-        //console.log({ authUrl });
+        console.log({ authUrl });
         const result = await AuthSession.startAsync({
             authUrl,
         });
@@ -92,10 +119,13 @@ class AuthStateContainer extends Container {
 
         // no need to await?
         AsyncStorage.setItem('userToken', encodedToken);
+        var decodedToken = undefined;
+        try {
+            decodedToken = jwtDecoder(encodedToken);
+        } catch(e) { /**/}
 
-        const decodedToken = jwtDecoder(encodedToken);
-        const { name: username, picture, email } = decodedToken;
-        //console.log({ decodedToken });
+        const { name: username, picture, email } = decodedToken || {};
+        // console.log({ decodedToken });
         this.setState({ username, picture, email, token: decodedToken, authLoading: false });
         navigation.navigate('AppNavigator');
     }

@@ -17,7 +17,7 @@ function Logout({ navigation }) {
         <Button
             style={styles.formButton}
             rounded block
-            onPress={(event) => login({ event, navigation })}
+            onPress={(event) => {}}
         >
             <Text style={{ color: theme.inverseTextColor }}>Signing Out...</Text>
         </Button>
