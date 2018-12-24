@@ -7,25 +7,23 @@ import Logo from '../components/logo';
 import theme from '../theme';
 
 import {
-    Spinner, Text, View, Content, Container, Header, Title, Button, Icon,
-    InputGroup, Input, ListItem, List, Radio, CheckBox, Thumbnail, Card, CardItem,
-    H3, Left, Right, Body, Footer, FooterTab, Form, Item
+    Text, View, Content, Container
 } from 'native-base';
 
 function Logout({ navigation }) {
-    const LogoutButton = ({ style }) => (
-        <Button
-            style={styles.buttonContainer}
-            rounded block
-        >
-            <Button
-                style={styles.buttonChild}
-                rounded block
-            >
-                <Text style={{ color: theme.inverseTextColor }}>Logging Out...</Text>
-            </Button>
-        </Button>
-    );
+    // const LogoutButton = ({ style }) => (
+    //     <Button
+    //         style={styles.buttonContainer}
+    //         rounded block
+    //     >
+    //         <Button
+    //             style={styles.buttonChild}
+    //             rounded block
+    //         >
+    //             <Text style={{ color: theme.inverseTextColor }}>Logging Out...</Text>
+    //         </Button>
+    //     </Button>
+    // );
     return (
         <Container style={styles.container}>
             <Content contentContainerStyle={styles.content}>

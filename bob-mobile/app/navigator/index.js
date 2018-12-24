@@ -52,7 +52,8 @@ const AppNavigator = createDrawerNavigator(
         opacity: 1
       }
     },
-    initialRouteName: 'Profile',
+    //initialRouteName: 'Profile',
+    initialRouteName: 'Strategies',
   }
 );
 

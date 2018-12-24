@@ -4,6 +4,7 @@ import { AsyncStorage, StyleSheet, Image, Platform, StatusBar, TouchableOpacity 
 import { Container, Title, Left, Icon, Right, Button, Body, Content, Text, Card, CardItem, View } from "native-base";
 
 import Header from '../components/header';
+import Loading from '../components/loading';
 
 export default class Dashboard extends React.Component {
     constructor(props) {
@@ -19,9 +20,7 @@ export default class Dashboard extends React.Component {
                     title={'Dashboard'}
                     hideSearch={true}
                 />
-                <View style={ styles.mainView }>
-                    <Text>Dashboard</Text>
-                </View>
+                <Loading />
             </Container>
         );
     }
