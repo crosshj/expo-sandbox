@@ -9,6 +9,16 @@ import WebView from '../components/niceWebview';
 //const uri = 'http://192.168.1.95:3000/mobileChart/';
 const uri = 'https://test.letbob.com/chartiq/chart.html#AAPL';
 
+
+/*
+
+would be nice to change orientaion (and react accordingly) on the fly...
+
+https://docs.expo.io/versions/latest/sdk/screen-orientation.html
+
+*/
+
+
 export default class Strategies extends React.Component {
     constructor(props) {
         super(props);

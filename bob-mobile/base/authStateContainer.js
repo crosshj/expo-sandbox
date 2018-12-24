@@ -101,7 +101,7 @@ class AuthStateContainer extends Container {
             nonce,
             redirect_uri,
         });
-        console.log({ authUrl });
+        //console.log({ authUrl });
         const result = await AuthSession.startAsync({
             authUrl,
         });
