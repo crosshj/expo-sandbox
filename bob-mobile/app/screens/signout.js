@@ -15,11 +15,15 @@ import {
 function Logout({ navigation }) {
     const LogoutButton = ({ style }) => (
         <Button
-            style={styles.formButton}
+            style={styles.buttonContainer}
             rounded block
-            onPress={(event) => {}}
         >
-            <Text style={{ color: theme.inverseTextColor }}>Signing Out...</Text>
+            <Button
+                style={styles.buttonChild}
+                rounded block
+            >
+                <Text style={{ color: theme.inverseTextColor }}>Logging Out...</Text>
+            </Button>
         </Button>
     );
     return (
@@ -41,12 +45,22 @@ const styles = StyleSheet.create({
         marginBottom: 'auto',
         justifyContent: 'center',
     },
-    formButton: {
-        backgroundColor: '#78c263',
+    buttonContainer: {
+        margin: 5,
+        borderColor: '#78c263',
+        borderWidth: 2,
+        backgroundColor: 'transparent',
         marginTop: 100,
-        borderWidth: 0,
-        borderColor: theme.inverseTextColor,
-        color: theme.inverseTextColor
+        padding: 1,
+        height: 52,
+        elevation: 0,
+    },
+    buttonChild: {
+        marginTop: -3,
+        height: 46,
+        backgroundColor: '#78c263',
+        elevation: 0,
+        flex: 1,
     }
 });
 

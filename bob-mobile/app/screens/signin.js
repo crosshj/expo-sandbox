@@ -22,9 +22,14 @@ function Login({ navigation }) {
                 <Button
                     style={styles.formButton}
                     rounded block
-                    onPress={(event) => login({ event, navigation })}
                 >
-                    <Text style={{ color: theme.inverseTextColor }}>Log in / Register</Text>
+                    <Button
+                        style={styles.buttonChild}
+                        rounded block
+                        onPress={(event) => login({ event, navigation })}
+                    >
+                        <Text style={{ color: theme.inverseTextColor }}>Log in / Register</Text>
+                    </Button>
                 </Button>
             )}
         </Subscribe>
@@ -49,12 +54,22 @@ const styles = StyleSheet.create({
         marginBottom: 'auto',
         justifyContent: 'center',
     },
-    formButton: {
-        backgroundColor: '#78c263',
+    buttonContainer: {
+        margin: 5,
+        borderColor: '#78c263',
+        borderWidth: 2,
+        backgroundColor: 'transparent',
         marginTop: 100,
-        borderWidth: 0,
-        borderColor: theme.inverseTextColor,
-        color: theme.inverseTextColor
+        padding: 1,
+        height: 52,
+        elevation: 0,
+    },
+    buttonChild: {
+        marginTop: -3,
+        height: 46,
+        backgroundColor: '#78c263',
+        elevation: 0,
+        flex: 1,
     }
 });
 

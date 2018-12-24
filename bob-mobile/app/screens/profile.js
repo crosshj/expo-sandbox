@@ -17,13 +17,13 @@ export default class HomeScreen extends React.Component {
         this.state = {
             pushToken: ''
         };
-        this._bootstrapAsync();
+        // this._bootstrapAsync();
     }
 
-    async _bootstrapAsync() {
-        const pushToken = await AsyncStorage.getItem('pushToken');
-        this.setState({ pushToken })
-    }
+    // async _bootstrapAsync() {
+    //     const pushToken = await AsyncStorage.getItem('pushToken');
+    //     this.setState({ pushToken })
+    // }
 
     render() {
         return (

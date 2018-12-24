@@ -26,7 +26,7 @@ const UserPicture = ({
             {({ state }) => (
                 <Thumbnail circle
                     style={styles.picture}
-                    source={{uri: state.picture || ''}}
+                    source={{uri: state.picture}}
                 />
             )}
         </Subscribe>

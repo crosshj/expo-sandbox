@@ -15,8 +15,14 @@ function HeaderComponent({ navigation, title, hideSearch }) {
           onPress={() => {
             navigation.openDrawer();
           }}
+          // style={{
+          //   height: '100%',
+          //   flex: 1,
+          //   alignItems: 'center',
+          //   justifyContent: 'center'
+          // }}
         >
-          <Icon name='menu' style={{ color: 'white', marginLeft: 15 }} />
+          <Icon name='menu' style={{ color: 'white', margin: 14 }} />
         </TouchableOpacity>
       </Left>
       <Body>
