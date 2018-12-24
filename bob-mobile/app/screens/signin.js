@@ -10,6 +10,9 @@ import {
     H3, Left, Right, Body, Footer, FooterTab, Form, Item
 } from 'native-base';
 
+
+Text.defaultProps.uppercase = false;
+
 import theme from '../theme';
 
 import { Subscribe } from 'unstated';
@@ -20,7 +23,7 @@ function Login({ navigation }) {
         <Subscribe to={[AuthStateContainer]}>
             {({ state, login }) => (
                 <Button
-                    style={styles.formButton}
+                    style={styles.buttonContainer}
                     rounded block
                 >
                     <Button
