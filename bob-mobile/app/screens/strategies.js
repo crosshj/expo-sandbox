@@ -23,14 +23,15 @@ class Strategies extends React.Component {
         const { navigation, strategies } = this.props;
 
         const cardHeader = ({ title }, expanded) => {
-            if(title === 'spacer'){
+            // WORKAROUND for problem with Accordian and last item
+            if (title === 'spacer') {
                 return <View style={{ height: 40 }}></View>;
             }
             return (
                 <View
-                    style={ expanded
-                        ? [styles.card, styles.cardHeader, styles.cardHeaderOpen ]
-                        : [styles.card, styles.cardHeader, styles.cardHeaderClosed ]
+                    style={expanded
+                        ? [styles.card, styles.cardHeader, styles.cardHeaderOpen]
+                        : [styles.card, styles.cardHeader, styles.cardHeaderClosed]
                     }
                 >
                     <Text style={{ fontWeight: "600" }}>
@@ -45,15 +46,37 @@ class Strategies extends React.Component {
         }
 
         const cardContent = ({ title, content }) => {
-            if(title === 'spacer'){
+            // WORKAROUND for problem with Accordian and last item
+            if (title === 'spacer') {
                 return undefined;
             }
+            const formatPercentage = fn => {
+                try {
+                    return `${Number(fn()).toFixed(3)}%`;
+                } catch (e) {
+                    return '---';
+                }
+            };
             return (
-                <Text
-                    style={[ styles.card, styles.cardContent ]}
+                <View
+                    style={[styles.card, styles.cardContent]}
                 >
-                    {content}
-                </Text>
+                    <Text>
+                        {" "}{content.description}
+                    </Text>
+                    <View style={styles.statsContainer}>
+                        <Text>
+                            {" WTD  "}{formatPercentage(() => content.Statistics.WeekToDate)}
+                        </Text>
+                        <Text>
+                            {" MTD  "}{formatPercentage(() => content.Statistics.MonthToDate)}
+                        </Text>
+                        <Text>
+                            {" YTD  "}{formatPercentage(() => content.Statistics.YearToDate)}
+                        </Text>
+                    </View>
+                </View>
+
             );
         };
         const CardView = () => (
@@ -134,6 +157,7 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
         borderBottomWidth: 0,
+        paddingBottom: 0,
     },
     cardHeaderClosed: {
         borderBottomLeftRadius: 5,
@@ -141,12 +165,15 @@ const styles = StyleSheet.create({
     },
     cardContent: {
         padding: 10,
+        paddingTop: 0,
         borderLeftWidth: 1,
         borderRightWidth: 1,
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
+    },
+    statsContainer: {
+        marginTop: 10
     }
-
 });
 
 

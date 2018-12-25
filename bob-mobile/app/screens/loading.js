@@ -32,6 +32,8 @@ import appJson from '../../app.json';
 
 import { AuthStateContainer } from '../../base/index';
 
+import StrategiesStateContainer from '../state/strategiesStateContainer';
+
 const delay = (shouldReject, timeout = 2000) =>
 	new Promise((res, rej) =>
 		setTimeout(shouldReject ? rej : res, timeout));
@@ -83,6 +85,9 @@ class LoadingScreen extends React.Component {
 		//console.log({ authState: AuthStateContainer.state })
 
 		this.setState({ token: AuthStateContainer.state.token });
+
+		//no await, because may not need it right away
+		StrategiesStateContainer.getUserStrategies();
 	}
 
 	_navigateAway = async () => {
