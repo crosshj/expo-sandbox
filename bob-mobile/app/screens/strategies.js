@@ -19,8 +19,41 @@ import Loading from '../components/loading';
 class Strategies extends React.Component {
 
     render() {
+        const { navigation, strategies, error, loading } = this.props;
 
-        const { navigation, strategies } = this.props;
+        const Screen = ({children}) => (
+            <Container style={styles.container}>
+                <Header
+                    navigation={navigation}
+                    title={'Strategies'}
+                    hideSearch={true}
+                />
+                {children}
+            </Container>
+        );
+
+        // TODO: make middleware/HOC (?) for this
+        if(error){
+            return (
+                <Screen>
+                    <View>
+                        <Text>
+                            {error}
+                        </Text>
+                    </View>
+                </Screen>
+            );
+        }
+
+
+        // TODO: make middleware/HOC (?) for this
+        if(loading){
+            return (
+                <Screen>
+                    <Loading />
+                </Screen>
+            );
+        }
 
         const cardHeader = ({ title }, expanded) => {
             // WORKAROUND for problem with Accordian and last item
@@ -46,6 +79,7 @@ class Strategies extends React.Component {
         }
 
         const cardContent = ({ title, content }) => {
+            console.log(Object.keys(content))
             // WORKAROUND for problem with Accordian and last item
             if (title === 'spacer') {
                 return undefined;
@@ -57,28 +91,33 @@ class Strategies extends React.Component {
                     return '---';
                 }
             };
+            const Stat = ({ period, amount}) => (
+                <View>
+                    <Text>{period}</Text>
+                    <Text
+                        style={{
+                            color: amount >= 0 ? 'green' : 'red'
+                        }}
+                    >{formatPercentage(() => amount)}</Text>
+                </View>
+            );
             return (
                 <View
                     style={[styles.card, styles.cardContent]}
                 >
                     <Text>
-                        {" "}{content.description}
+                        {" "}{content.Tickers.join(', ')}
                     </Text>
                     <View style={styles.statsContainer}>
-                        <Text>
-                            {" WTD  "}{formatPercentage(() => content.Statistics.WeekToDate)}
-                        </Text>
-                        <Text>
-                            {" MTD  "}{formatPercentage(() => content.Statistics.MonthToDate)}
-                        </Text>
-                        <Text>
-                            {" YTD  "}{formatPercentage(() => content.Statistics.YearToDate)}
-                        </Text>
+                        <Stat period={"WTD"} amount={content.Statistics.WeekToDate} />
+                        <Stat period={"MTD"} amount={content.Statistics.MonthToDate} />
+                        <Stat period={"YTD"} amount={content.Statistics.YearToDate} />
                     </View>
                 </View>
 
             );
         };
+
         const CardView = () => (
             <Content contentContainerStyle={styles.cardView}>
                 <Accordion
@@ -91,19 +130,10 @@ class Strategies extends React.Component {
             </Content>
         );
 
-        const Body = this.props.loading
-            ? Loading
-            : CardView;
-
         return (
-            <Container style={styles.container}>
-                <Header
-                    navigation={navigation}
-                    title={'Strategies'}
-                    hideSearch={true}
-                />
-                <Body />
-            </Container>
+            <Screen>
+                <CardView />
+            </Screen>
         );
     }
 }
@@ -111,7 +141,12 @@ class Strategies extends React.Component {
 export default strategiesStateWrapper = (props) => (
     <Subscribe to={[strategiesStateContainer]}>
         {({ state }) => (
-            <Strategies {...props} strategies={state.strategies} loading={state.loading} />
+            <Strategies
+                {...props}
+                strategies={state.strategies}
+                loading={state.loading}
+                error={state.error}
+            />
         )}
     </Subscribe>
 );
@@ -172,7 +207,12 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 5,
     },
     statsContainer: {
-        marginTop: 10
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 20,
+        paddingLeft: 5,
+        paddingRight: 5,
     }
 });
 

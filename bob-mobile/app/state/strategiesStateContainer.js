@@ -146,7 +146,7 @@ class StrategiesStateContainer extends Container {
             console.log(' ---- getUserStrategies [END]');
         } catch (error) {
             console.log(' ---- getUserStrategies [ERROR]: ', error);
-            this.setState(() => ({ strategies: [], error, loading: false }));
+            this.setState(() => ({ strategies: [], error: error.message, loading: false }));
         }
     }
 }
