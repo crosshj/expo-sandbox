@@ -79,11 +79,12 @@ class Strategies extends React.Component {
         }
 
         const cardContent = ({ title, content }) => {
-            console.log(Object.keys(content))
             // WORKAROUND for problem with Accordian and last item
             if (title === 'spacer') {
                 return undefined;
             }
+            // WORKAROUND END
+
             const formatPercentage = fn => {
                 try {
                     return `${Number(fn()).toFixed(3)}%`;
