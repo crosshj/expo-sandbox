@@ -2,8 +2,6 @@ import React from 'react';
 import { AsyncStorage, StyleSheet, Image, Platform, StatusBar, TouchableOpacity } from 'react-native';
 import Expo, { Asset, AppLoading } from 'expo';
 
-import Logo from '../components/logo';
-
 import {
   Spinner, Text, View, Content, Container, Header, Title, Button, Icon,
   InputGroup, Input, ListItem, List, Radio, CheckBox, Thumbnail, Card, CardItem,
@@ -14,7 +12,7 @@ import appJson from '../../app.json';
 
 import theme from '../theme';
 
-export default class SignOut extends React.Component {
+export default class Calendar extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -22,17 +20,11 @@ export default class SignOut extends React.Component {
     render() {
         return (
             <Container style={styles.container}>
-                <Logo />
                 <Content style={styles.content}>
                     <Form style={{
                         marginTop: 40,
                     }}>
-                        <Button
-                            style={styles.formButton}
-                            bordered success block
-                        >
-                            <Text style={{ color: theme.textColor }}>Signing Out...</Text>
-                        </Button>
+                        <Text style={{ color: theme.textColor }}>Calendar</Text>
                     </Form>
                 </Content>
             </Container>

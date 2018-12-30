@@ -33,12 +33,10 @@ async function profilePage({ event, navigation }){
   navigation.dispatch(DrawerActions.closeDrawer());
 }
 
-
-
 import { Subscribe } from 'unstated';
 import { AuthStateContainer } from '../../base';
 
-const visibleItems = ['Portrait', 'Landscape'];
+const visibleItems = ['Portrait', 'Landscape', 'Shopping'];
 const getVisible = item => visibleItems.includes(item.key);
 
 const CustomDrawerContentComponent = ({items, ...other}) => {

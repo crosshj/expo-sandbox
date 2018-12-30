@@ -11,6 +11,8 @@ import Portrait from '../screens/portrait';
 import Profile from '../screens/profile';
 import Settings from '../screens/settings';
 
+import Shopping from '../screens/Shopping';
+
 import SignIn from '../screens/signin';
 import SignOut from '../screens/signout';
 import Loading from '../screens/loading';
@@ -39,6 +41,7 @@ const AppNavigator = createDrawerNavigator(
     //   onMessage={(event)=> console.log(event.nativeEvent.data)}
     // />) },
     Profile: { screen: Profile },
+    Shopping: { screen: Shopping },
     Settings: { screen: Settings },
   },
   {
