@@ -7,8 +7,6 @@ import {
     Thumbnail,
 } from 'native-base';
 
-import userIconMale from './icons/userIcon-male';
-
 const UserPicture = ({
     size = 75, small, large, square, circle = true, style
 }) => {
@@ -28,7 +26,7 @@ const UserPicture = ({
             {({ state }) => (
                 <Thumbnail circle
                     style={styles.picture}
-                    source={{uri: state.picture || userIconMale()}}
+                    source={{uri: state.picture}}
                 />
             )}
         </Subscribe>
