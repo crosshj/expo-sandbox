@@ -25,11 +25,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     image: {
-        width: 135,
-        height: 148,
+        width: 300,
+        height: 250,
         marginTop: 223,
-        marginLeft: -12,
-        marginBottom: 0
+        marginLeft: -6,
+        marginBottom: 80
     },
 });
 

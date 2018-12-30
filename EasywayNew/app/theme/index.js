@@ -1,5 +1,5 @@
-import darkBlue from './darkBlue';
-export default darkBlue;
+import easywaytheme from './easywaytheme';
+export default easywaytheme;
 
 // import material from './material';
 // export default material;

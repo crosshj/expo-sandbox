@@ -7,9 +7,7 @@ import {
     Text,
 } from 'native-base';
 
-import theme from '../theme';
-
-const Email = ({ inverse, bold, style, small }) => {
+const Email = ({ inverse, bold, style, small, theme }) => {
     const styles = {
         ...{
             text: {
