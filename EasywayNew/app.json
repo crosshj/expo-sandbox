@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "EasyWay",
+    "description": "Shopping, Meal Plans, & Recipes ",
+    "slug": "easyway",
+    "scheme": "easyway",
+    "privacy": "unlisted",
+    "sdkVersion": "31.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "primaryColor": "#1c2a35",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1c2a35"
+    },
+    "updates": {
+      "enabled": false
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.crossar.easyway"
+    },
+    "android": {
+      "package": "com.crossar.easyway"
+    }
+  }
+}
