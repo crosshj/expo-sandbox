@@ -1,16 +1,25 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, ScrollView, Image, Icon, ImageBackground, View, Text, Platform, StatusBar, TouchableOpacity } from 'react-native';
+import { AsyncStorage, StyleSheet, ScrollView, Image, View, TouchableOpacity } from 'react-native';
 import { DrawerItems, SafeAreaView, NavigationActions, DrawerActions } from 'react-navigation';
-import { Container } from 'native-base';
+import {
+  Container, Text
+} from 'native-base';
 
+
+import UserName from './userName';
+import UserEmail from './userEmail';
+import UserPicture from './userPicture';
+
+import userIconMale from './icons/userIcon-male';
 import { Ionicons } from '@expo/vector-icons';
 
-var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAIAAAC0tAIdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAaSURBVChTY0jfaUY8GlWNiUZVYyLaqd5pBgBbpCym1BWunwAAAABJRU5ErkJggg==';
+import theme from '../theme';
 
-async function signOut({ event, navigation }){
-  event.persist();
-  navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignOut' }));
-}
+
+// async function signOut({ event, navigation }){
+//   event.persist();
+//   navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignOut' }));
+// }
 
 async function settingsPage({ event, navigation }){
   event.persist();
@@ -24,7 +33,12 @@ async function profilePage({ event, navigation }){
   navigation.dispatch(DrawerActions.closeDrawer());
 }
 
-const visibleItems = ['Receipts', 'Vendors'];
+
+
+import { Subscribe } from 'unstated';
+import { AuthStateContainer } from '../../base';
+
+const visibleItems = ['Portrait', 'Landscape'];
 const getVisible = item => visibleItems.includes(item.key);
 
 const CustomDrawerContentComponent = ({items, ...other}) => {
@@ -32,7 +46,7 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
   //console.log({props});
   return (
     <Container>
-      <ImageBackground style={styles.backgroundImage} source={{uri: base64Icon}}>
+      <View style={styles.backgroundImage}>
         <TouchableOpacity
           style={{
             position: 'absolute',
@@ -43,28 +57,31 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
         >
           <Ionicons
             name="md-settings"
-            size={32} color="white"
+            size={32}
+            color="white"
           />
         </TouchableOpacity>
+
         <TouchableOpacity
           style={{
             marginRight: 45,
+            marginLeft: 15,
+            marginTop: 40
           }}
           onPress={(event) => profilePage({ event, navigation })}
         >
-          <Text style={{
-            marginLeft: 15,
-            fontWeight: 'bold',
-            color: 'white'
-          }}
-          >Johnathan Doe</Text>
-          <Text style={{
-            marginLeft: 15,
-            color: 'white'
-          }}
-          >johnathandoe33@ledjr.com</Text>
+          <View style={{
+            marginTop: 10,
+            marginBottom: 10,
+          }}>
+            <UserPicture />
+          </View>
+
+          <UserName inverse bold />
+          <UserEmail inverse small />
+
         </TouchableOpacity>
-      </ImageBackground>
+      </View>
       <ScrollView>
           <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
             <DrawerItems
@@ -72,11 +89,18 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
               {...other}
             />
           </SafeAreaView>
-          <TouchableOpacity onPress={(event) => signOut({ event, navigation })}>
-            <View>
-              <Text style={styles.menuItem}>Logout</Text>
-            </View>
-          </TouchableOpacity>
+          <Subscribe to={[ AuthStateContainer ]}>
+						{({state, logout}) => (
+							<TouchableOpacity onPress={(event) => {
+								event.persist();
+								logout({ navigation });
+							}}>
+								<View>
+									<Text style={styles.menuItem}>Logout</Text>
+								</View>
+							</TouchableOpacity>
+						)}
+					</Subscribe>
       </ScrollView>
     </Container>
   );
@@ -88,12 +112,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backgroundImage: {
-    width: '100%', height: 165
+    width: '100%',
+    height: 170,
+    backgroundColor: theme.toolbarDefaultBg
   },
   menuItem: {
     margin: 16,
     fontWeight: 'bold',
-    color: 'rgba(0, 0, 0, .87)',
+    //color: 'rgba(0, 0, 0, .87)',
   }
 });
 

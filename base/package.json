@@ -2,15 +2,20 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "dependencies": {
-    "expo": "^28.0.0",
+    "expo": "^31.0.2",
     "import": "0.0.6",
+    "jwt-decode": "^2.2.0",
     "native-base": "^2.7.2",
-    "react": "16.3.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-28.0.0.tar.gz",
+    "react": "16.5.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-indicator": "^0.7.0",
     "react-native-modal": "^6.5.0",
     "react-native-spinkit": "^1.1.1",
     "react-native-user-avatar": "^1.0.3",
-    "react-navigation": "^2.9.1"
+    "react-navigation": "^2.9.1",
+    "unstated": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^5.0.0"
   }
 }

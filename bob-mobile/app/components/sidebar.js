@@ -6,12 +6,16 @@ import { Container } from 'native-base';
 import userIconMale from './icons/userIcon-male';
 import { Ionicons } from '@expo/vector-icons';
 
-var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAIAAAC0tAIdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAaSURBVChTY0jfaUY8GlWNiUZVYyLaqd5pBgBbpCym1BWunwAAAABJRU5ErkJggg==';
+var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xMzQDW3oAAAAMSURBVBhXY5DySwYAAVEAzItjNDcAAAAASUVORK5CYII=';
+//#1a4e63 ^^^
 
-async function signOut({ event, navigation }){
-  event.persist();
-  navigation.navigate('AuthNavigator', {}, NavigationActions.navigate({ routeName: 'SignOut' }));
-}
+import { Subscribe } from 'unstated';
+import {
+  AuthStateContainer,
+  UserEmail, UserName, UserPicture
+} from '../../base';
+
+import theme from '../theme';
 
 async function settingsPage({ event, navigation }){
   event.persist();
@@ -25,12 +29,27 @@ async function profilePage({ event, navigation }){
   navigation.dispatch(DrawerActions.closeDrawer());
 }
 
-const visibleItems = ['Receipts', 'Vendors'];
+const visibleItems = ['Dashboard', 'Strategies'];
 const getVisible = item => visibleItems.includes(item.key);
 
 const CustomDrawerContentComponent = ({items, ...other}) => {
   const { navigation } = other;
-  //console.log({props});
+
+  const LogoutButton = () => (
+    <Subscribe to={[ AuthStateContainer ]}>
+      {({state, logout}) => (
+        <TouchableOpacity onPress={(event) => {
+          event.persist();
+          logout({ navigation });
+        }}>
+          <View>
+            <Text style={styles.menuItem}>Logout</Text>
+          </View>
+        </TouchableOpacity>
+      )}
+    </Subscribe>
+  );
+
   return (
     <Container>
       <ImageBackground style={styles.backgroundImage} source={{uri: base64Icon}}>
@@ -47,13 +66,13 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
             size={32} color="white"
           />
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             marginRight: 45,
           }}
           onPress={(event) => profilePage({ event, navigation })}
-        >
-          <Image style={{
+        > */}
+          {/* <Image style={{
             width: 75,
             height: 75,
             marginTop: 40,
@@ -64,12 +83,30 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
             fontWeight: 'bold',
             color: 'white'
           }}
-          >Johnathan Doe</Text>
+          >Day Trader</Text>
           <Text style={{
             marginLeft: 15,
             color: 'white'
           }}
-          >johnathandoe33@ledjr.com</Text>
+          >daytrader@bob.com</Text> */}
+        <TouchableOpacity
+          style={{
+            marginRight: 45,
+            marginLeft: 15,
+            marginTop: 40
+          }}
+          onPress={(event) => profilePage({ event, navigation })}
+        >
+          <View style={{
+            marginTop: 10,
+            marginBottom: 10,
+          }}>
+            <UserPicture theme={theme} />
+          </View>
+
+          <UserName inverse bold theme={theme} />
+          <UserEmail inverse small theme={theme} />
+
         </TouchableOpacity>
       </ImageBackground>
       <ScrollView>
@@ -79,11 +116,12 @@ const CustomDrawerContentComponent = ({items, ...other}) => {
               {...other}
             />
           </SafeAreaView>
-          <TouchableOpacity onPress={(event) => signOut({ event, navigation })}>
+          {/* <TouchableOpacity onPress={(event) => signOut({ event, navigation })}>
             <View>
               <Text style={styles.menuItem}>Logout</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <LogoutButton />
       </ScrollView>
     </Container>
   );
@@ -95,7 +133,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backgroundImage: {
-    width: '100%', height: 165
+    width: '100%',
+    height: 180,
   },
   menuItem: {
     margin: 16,

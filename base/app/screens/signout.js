@@ -10,59 +10,26 @@ import {
   H3, Left, Right, Body, Footer, FooterTab, Form, Item
 } from 'native-base';
 
-const delay = (shouldReject, timeout = 2000) =>
-  new Promise((res, rej) =>
-    setTimeout(shouldReject ? rej : res, timeout));
+import appJson from '../../app.json';
 
-async function signIn({ navigation }){
-    navigation.navigate('SignIn');
-}
-
-export default class HomeScreen extends React.Component {
+export default class SignOut extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            signedOut: false
-        };
-        this.signOut();
-    }
-
-    async signOut(){
-        await AsyncStorage.clear();
-        await delay(false, 2000);
-        this.setState({ signedOut: true });
     }
 
     render() {
-        if(!this.state.signedOut){
-            return (
-                <AppLoading />
-            );
-        }
-        const { navigation } = this.props;
         return (
             <Container style={styles.container}>
                 <Logo />
                 <Content style={styles.content}>
-                    <Text
-                        style={{
-                            fontSize: 30,
-                            color: '#999',
-                            width: '100%',
-                            textAlign: 'center',
-                            fontStyle: 'italic',
-                            marginBottom: 30
-                        }}
-                    >Come back again soon!</Text>
                     <Form style={{
-                        marginTop: 0,
+                        marginTop: 40,
                     }}>
                         <Button
                             style={styles.formButton}
-                            success block
-                            onPress={(event) => signIn({ navigation })}
+                            bordered success block
                         >
-                            <Text>Sign In Again</Text>
+                            <Text style={{ color: 'white' }}>Signing Out...</Text>
                         </Button>
                     </Form>
                 </Content>
@@ -73,21 +40,21 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-      display: 'flex',
-      marginTop: 'auto',
-      backgroundColor: "white",
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      height: '100%',
+        display: 'flex',
+        marginTop: 'auto',
+        backgroundColor: appJson.expo.splash.backgroundColor,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        height: '100%',
     },
     content: {
-      flex: 3,
-      minWidth: '80%',
-      marginBottom: 0,
+        flex: 3,
+        minWidth: '80%',
+        marginBottom: 0,
     },
-    footer: {
-        marginTop: 'auto',
-        flex: 1,
-        maxHeight: 80,
+    formButton: {
+        borderColor: appJson.expo.splash.backgroundColor,
+        borderWidth: 0,
+        color: appJson.expo.splash.backgroundColor
     }
-  });
+});

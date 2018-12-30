@@ -1,31 +1,32 @@
 {
   "expo": {
-    "name": "ledjr",
-    "description": "Receipts made simple.",
-    "slug": "ledjr",
+    "name": "Day Trading Bob",
+    "description": "Day Trading Bob",
+    "slug": "bob",
+    "scheme": "bob",
     "privacy": "unlisted",
-    "sdkVersion": "28.0.0",
+    "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "primaryColor": "#62bc26",
+    "primaryColor": "#1a4e63",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "enabled": false
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/*"
     ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "package": "com.appsolutions.ledjr"
+      "package": "com.crosshj.bob"
     }
   }
 }

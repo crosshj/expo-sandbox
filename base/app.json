@@ -3,26 +3,28 @@
     "name": "base",
     "description": "Base apps off this",
     "slug": "base",
+    "scheme": "base",
     "privacy": "unlisted",
-    "sdkVersion": "28.0.0",
-    "platforms": ["ios", "android"],
+    "sdkVersion": "31.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "primaryColor": "#62bc26",
+    "primaryColor": "#1c2a35",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#1c2a35"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "enabled": false
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.crosshj.base"
     },
     "android": {
       "package": "com.crosshj.base"

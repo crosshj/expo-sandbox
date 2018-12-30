@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, WebView, ActivityIndicator } from 'react-native';
+import { View, WebView, Text, ActivityIndicator } from 'react-native';
 import { RippleLoader } from 'react-native-indicator';
 
 const LoadingPage = ({ loading, offset }) => {
@@ -9,7 +9,6 @@ const LoadingPage = ({ loading, offset }) => {
                 flex:1,
                 justifyContent: 'center',
                 alignItems: 'center',
-                paddingBottom: offset,
                 backgroundColor: '#1c2a35',
                 position: 'absolute',
                 top: 0,
@@ -51,7 +50,6 @@ export default class MyWeb extends React.Component {
                     onLoadEnd={() => { this.showWebView() }}
                 />
                 <LoadingPage
-                    offset={240}
                     loading={this.state.loading}
                 />
             </View>

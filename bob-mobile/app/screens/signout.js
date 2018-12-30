@@ -4,90 +4,78 @@ import Expo, { Asset, AppLoading } from 'expo';
 
 import Logo from '../components/logo';
 
+import theme from '../theme';
+
 import {
-  Spinner, Text, View, Content, Container, Header, Title, Button, Icon,
-  InputGroup, Input, ListItem, List, Radio, CheckBox, Thumbnail, Card, CardItem,
-  H3, Left, Right, Body, Footer, FooterTab, Form, Item
+    Text, View, Content, Container
 } from 'native-base';
 
-const delay = (shouldReject, timeout = 2000) =>
-  new Promise((res, rej) =>
-    setTimeout(shouldReject ? rej : res, timeout));
-
-async function signIn({ navigation }){
-    navigation.navigate('SignIn');
-}
-
-export default class HomeScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            signedOut: false
-        };
-        this.signOut();
-    }
-
-    async signOut(){
-        await AsyncStorage.clear();
-        await delay(false, 2000);
-        this.setState({ signedOut: true });
-    }
-
-    render() {
-        if(!this.state.signedOut){
-            return (
-                <AppLoading />
-            );
-        }
-        const { navigation } = this.props;
-        return (
-            <Container style={styles.container}>
+function Logout({ navigation }) {
+    // const LogoutButton = ({ style }) => (
+    //     <Button
+    //         style={styles.buttonContainer}
+    //         rounded block
+    //     >
+    //         <Button
+    //             style={styles.buttonChild}
+    //             rounded block
+    //         >
+    //             <Text style={{ color: theme.inverseTextColor }}>Logging Out...</Text>
+    //         </Button>
+    //     </Button>
+    // );
+    return (
+        <Container style={styles.container}>
+            <Content contentContainerStyle={styles.content}>
                 <Logo />
-                <Content style={styles.content}>
-                    <Text
-                        style={{
-                            fontSize: 30,
-                            color: '#999',
-                            width: '100%',
-                            textAlign: 'center',
-                            fontStyle: 'italic',
-                            marginBottom: 30
-                        }}
-                    >Come back again soon!</Text>
-                    <Form style={{
-                        marginTop: 0,
-                    }}>
-                        <Button
-                            style={styles.formButton}
-                            success block
-                            onPress={(event) => signIn({ navigation })}
-                        >
-                            <Text>Sign In Again</Text>
-                        </Button>
-                    </Form>
-                </Content>
-            </Container>
-        );
-    }
+                <View style={styles.blurb}>
+                    <Text style={styles.blurbText}>LOGGING OUT...</Text>
+                </View>
+                {/* <LogoutButton /> */}
+            </Content>
+        </Container>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
-      display: 'flex',
-      marginTop: 'auto',
-      backgroundColor: "white",
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      height: '100%',
+        alignItems: 'center',
     },
     content: {
-      flex: 3,
-      minWidth: '80%',
-      marginBottom: 0,
+        marginTop: 110,
+        marginBottom: 'auto',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    footer: {
-        marginTop: 'auto',
+    buttonContainer: {
+        margin: 5,
+        borderColor: '#78c263',
+        borderWidth: 2,
+        backgroundColor: 'transparent',
+        marginTop: 20,
+        padding: 1,
+        height: 52,
+        elevation: 0,
+    },
+    buttonChild: {
+        marginTop: -3,
+        height: 46,
+        backgroundColor: '#78c263',
+        elevation: 0,
         flex: 1,
-        maxHeight: 80,
+    },
+    buttonChildText: {
+        fontSize: 18,
+        color: theme.inverseTextColor,
+    },
+    blurb: {
+        marginTop: 80,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    blurbText: {
+        fontSize: 24,
     }
-  });
+});
+
+module.exports = Logout;

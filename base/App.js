@@ -1,62 +1,24 @@
-import React from 'react';
-import { createDrawerNavigator, createSwitchNavigator, createStackNavigator } from "react-navigation";
+import AppBase from './base';
 
-import Landscape from './app/screens/landscape';
-import Portrait from './app/screens/portrait';
+import Navigator from './app/navigator';
+import Theme from './app/theme';
 
-import SignIn from './app/screens/signin';
-import SignOut from './app/screens/signout';
-import Loading from './app/screens/loading';
+const App = AppBase({
+	Navigator, Theme
+});
 
-import SideBar from './app/components/sidebar';
+export default App;
 
-const uri = 'https://start.duckduckgo.com/?kae=d&ko=-2';
-import WebView from './app/components/niceWebview';
+/*
+    For this to truly function as a base project, need following passed to this module
 
-const AppNavigator = createDrawerNavigator(
-  {
-    Landscape: { screen: Portrait(<WebView
-      source={{uri}}
-    />) },
-  },
-  {
-    contentComponent: props => <SideBar {...props} />,
-    contentOptions: {
-      activeTintColor: '#e91e63',
-      itemsContainerStyle: {
-        marginVertical: 0,
-      },
-      iconContainerStyle: {
-        opacity: 1
-      }
-    }
-  }
-);
+    navigator
+    theme
+    state
 
-const AuthNavigator = createStackNavigator(
-  { SignIn, SignOut },
-  { headerMode: 'none' }
-);
+    more? maybe?
+    components
+    screens
+    services
 
-const SwitchNavigator = createSwitchNavigator(
-  {
-    Loading,
-    AppNavigator,
-    AuthNavigator,
-  },
-  {
-    initialRouteName: 'AppNavigator',
-  }
-);
-
-export default class App extends React.Component {
-  state = {
-    isReady: true,
-    isLoggedIn: true,
-    modalVisible: false,
-  };
-
-  render() {
-    return <SwitchNavigator />
-  }
-}
+*/

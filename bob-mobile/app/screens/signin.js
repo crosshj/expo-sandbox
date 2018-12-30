@@ -5,71 +5,92 @@ import Expo, { Asset, AppLoading } from 'expo';
 import Logo from '../components/logo';
 
 import {
-  Spinner, Text, View, Content, Container, Header, Title, Button, Icon,
-  InputGroup, Input, ListItem, List, Radio, CheckBox, Thumbnail, Card, CardItem,
-  H3, Left, Right, Body, Footer, FooterTab, Form, Item
+    Spinner, Text, View, Content, Container, Header, Title, Button, Icon,
+    InputGroup, Input, ListItem, List, Radio, CheckBox, Thumbnail, Card, CardItem,
+    H3, Left, Right, Body, Footer, FooterTab, Form, Item
 } from 'native-base';
 
-const delay = (shouldReject, timeout = 2000) =>
-  new Promise((res, rej) =>
-    setTimeout(shouldReject ? rej : res, timeout));
 
-async function signIn({ event, navigation }){
-    event.persist()
-    await AsyncStorage.setItem('userToken', 'abc');
-    await delay(false, 2000);
-    navigation.navigate('AppNavigator');
-}
+Text.defaultProps.uppercase = false;
 
-function Login({ navigation }){
-  return (
-    <Container style={styles.container}>
-        <Logo />
-        <Content style={styles.content}>
-            <Form style={{
-                marginTop: 0,
-            }}>
-                <Item style={{ marginLeft: 0, marginBottom: 15 }}>
-                    <Input placeholder='Username' />
-                </Item>
-                <Item style={{ marginLeft: 0, marginBottom: 35 }}>
-                    <Input placeholder='Password' />
-                </Item>
+import theme from '../theme';
+
+import { Subscribe } from 'unstated';
+import { AuthStateContainer } from '../../base';
+
+function Login({ navigation }) {
+    const LoginButton = ({ style }) => (
+        <Subscribe to={[AuthStateContainer]}>
+            {({ state, login }) => (
                 <Button
-                    style={styles.formButton}
-                    success block
-                    onPress={(event) => signIn({ event, navigation })}
+                    style={styles.buttonContainer}
+                    rounded block
                 >
-                <Text>Sign In</Text>
+                    <Button
+                        style={styles.buttonChild}
+                        rounded block
+                        onPress={(event) => login({ event, navigation })}
+                    >
+                        <Text style={styles.buttonChildText}>Log in / Register</Text>
+                    </Button>
                 </Button>
-            </Form>
-        </Content>
-        <Content style={styles.footer}>
-            <Text>Create an account</Text>
-        </Content>
-    </Container>
-  );
+            )}
+        </Subscribe>
+    );
+
+    return (
+        <Container style={styles.container}>
+            <Content contentContainerStyle={styles.content}>
+                <Logo />
+                <View style={styles.blurb}>
+                    <Text style={styles.blurbText}>YOUR INVESTMENTS.</Text>
+                    <Text style={styles.blurbText}>AUTOMATED.</Text>
+                </View>
+                <LoginButton />
+            </Content>
+        </Container>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    marginTop: 'auto',
-    backgroundColor: "white",
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    height: '100%',
-  },
-  content: {
-    flex: 3,
-    minWidth: '80%',
-    marginBottom: 0,
-  },
-  footer: {
-      marginTop: 'auto',
-      flex: 1,
-      maxHeight: 80,
-  }
+    container: {
+        alignItems: 'center',
+    },
+    content: {
+        marginTop: 110,
+        marginBottom: 'auto',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    buttonContainer: {
+        margin: 5,
+        borderColor: '#78c263',
+        borderWidth: 2,
+        backgroundColor: 'transparent',
+        marginTop: 20,
+        padding: 1,
+        height: 52,
+        elevation: 0,
+    },
+    buttonChild: {
+        marginTop: -3,
+        height: 46,
+        backgroundColor: '#78c263',
+        elevation: 0,
+        flex: 1,
+    },
+    buttonChildText: {
+        fontSize: 18,
+        color: theme.inverseTextColor,
+    },
+    blurb: {
+        marginTop: 80,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    blurbText: {
+        fontSize: 24,
+    }
 });
 
 module.exports = Login;
