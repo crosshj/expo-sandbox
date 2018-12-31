@@ -10,15 +10,18 @@ import UserPicture from './userPicture';
 
 import { SplashScreen } from 'expo';
 
+import getNavigator from './navigator';
+
 const GetAppBase = ({
 	Theme, Navigator
 }) => {
 	SplashScreen.hide();
+	const BaseNavigator = getNavigator(Navigator, Theme);
 
 	return () => (
 		<StateWrapper>
 			<StyleWrapper theme={Theme}>
-				<Navigator />
+				<BaseNavigator />
 			</StyleWrapper>
 		</StateWrapper>
 	);
