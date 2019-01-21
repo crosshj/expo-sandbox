@@ -7,7 +7,7 @@ import Theme from './app/theme';
 import screens from './app/screens';
 
 const options = {
-    initialRouteName: '30 Seconds',
+    initialRouteName: 'Hello World',
 };
 
 const App = AppBase({
@@ -15,17 +15,3 @@ const App = AppBase({
 });
 
 export default App;
-
-/*
-    For this to truly function as a base project, need following passed to this module
-
-    navigator
-    theme
-    state
-
-    more? maybe?
-    components
-    screens
-    services
-
-*/
