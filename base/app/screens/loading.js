@@ -52,7 +52,7 @@ class LoadingScreen extends React.Component {
 	}
 
 	_cacheResourcesAsync = async () => {
-		console.log('--- _cacheResourcesAsync');
+		//console.log('--- _cacheResourcesAsync');
 		const images = [
 			//require('../../assets/icon.png'),
 			//require('../../assets/splash.png'),
@@ -82,11 +82,11 @@ class LoadingScreen extends React.Component {
 	_navigateAway = async () => {
 		//const userToken = await AsyncStorage.getItem('userToken');
 		const userToken = this.state.token;
-		console.log({ userToken });
+		//console.log({ userToken });
 
 		const navTo = userToken ? 'AppNavigator' : 'AuthNavigator';
 		//const navTo = 'AppNavigator';
-		console.log(`--- will navigate away from loading to ${navTo}!!`);
+		//console.log(`--- will navigate away from loading to ${navTo}!!`);
 		this.props.navigation.navigate(navTo);
 	}
 
