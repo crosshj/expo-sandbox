@@ -4,26 +4,32 @@ import {
   createDrawerNavigator, createSwitchNavigator, createStackNavigator
 } from "react-navigation";
 
-import SignIn from '../signin';
-import SignOut from '../signout';
+import SignIn from './signin';
+import SignOut from './signout';
 
-import SideBar from './sidebar';
+import getSideBar from './sidebar';
 
-const getNavigator = ({screens, options, Loading}, Theme) => {
+const getNavigator = ({
+  screens, options, appJson, Loading, Logo, Theme
+}) => {
+
+  const SideBar = getSideBar({theme: Theme, screens});
 
   // TODO: activeTintColor should come from Theme
 
   const baseOpts =   {
     contentComponent: props => <SideBar {...props} />,
     contentOptions: {
-      activeTintColor: '#e91e63',
+      //activeTintColor: Theme.brandInfo,
+      inactiveTintColor: Theme.textColor,
+      //activeBackgroundColor: Theme.textColor,
       itemsContainerStyle: {
         marginVertical: 0,
       },
       iconContainerStyle: {
         opacity: 1
       }
-    }
+    },
   };
 
   const AppNavigator = createDrawerNavigator(
@@ -48,7 +54,7 @@ const getNavigator = ({screens, options, Loading}, Theme) => {
     //initialRouteName: 'AppNavigator',
   });
 
-  return <SwitchNavigator />;
+  return () => <SwitchNavigator />;
 };
 
 export default getNavigator;

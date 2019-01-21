@@ -9,7 +9,7 @@ import {
 } from 'native-base';
 
 import { Subscribe } from 'unstated';
-import { AuthStateContainer } from '../authStateContainer';
+import AuthStateContainer from '../authStateContainer';
 
 const getLogin = (theme, Logo, appJson) => {
 	function Login({ navigation }) {

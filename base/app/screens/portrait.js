@@ -15,6 +15,11 @@ const portrait = (child) => class MyWeb extends React.Component {
                     backgroundColor: '#1c2a35',
                     //backgroundColor: 'red',
             }}>
+                {/* <Header
+                    navigation={this.props.navigation}
+                    title={'Profile'}
+                    hideSearch={true}
+                /> */}
                 <View style={{
                     height: deviceHeight - 23,
                     width: deviceWidth}}

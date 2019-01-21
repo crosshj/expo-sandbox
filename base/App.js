@@ -1,10 +1,17 @@
 import AppBase from './base';
 
-import Navigator from './app/navigator';
+import appJson from './app.json';
+import Loading from './app/screens/loading';
+import Logo from './app/components/logo';
 import Theme from './app/theme';
+import screens from './app/screens';
+
+const options = {
+    initialRouteName: '30 Seconds',
+};
 
 const App = AppBase({
-	Navigator, Theme
+    appJson, Loading, Logo, Theme, screens, options
 });
 
 export default App;
