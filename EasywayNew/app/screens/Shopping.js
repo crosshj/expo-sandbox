@@ -24,7 +24,17 @@ export default class Shopping extends React.Component {
                     <Form style={{
                         marginTop: 40,
                     }}>
-                        <Text style={{ color: theme.textColor }}>Shopping</Text>
+                    
+                        <Button full danger>
+                         <Text>Shopping List</Text>
+                         </Button>
+                         
+                        <Button primary><Text> MEAT </Text></Button>
+                        <Button success><Text> VEGETABLES </Text></Button>
+                        <Button info><Text> Info </Text></Button>
+                        <Button warning><Text> Warning </Text></Button>
+                        <Button danger><Text> Danger </Text></Button>
+                        <Button dark><Text> Dark </Text></Button>
                         <Text style={{ color: theme.textColor }}>Why there's no page here, hubby?</Text>
                         <Text style={{ color: theme.textColor }}>Because Wifey is lazy and no make it!</Text>
                     </Form>

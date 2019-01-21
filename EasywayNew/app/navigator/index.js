@@ -13,6 +13,8 @@ import Settings from '../screens/settings';
 
 import Shopping from '../screens/Shopping';
 
+import Recipes from '../screens/Recipes';
+
 import SignIn from '../screens/signin';
 import SignOut from '../screens/signout';
 import Loading from '../screens/loading';
@@ -42,6 +44,7 @@ const AppNavigator = createDrawerNavigator(
     // />) },
     Profile: { screen: Profile },
     Shopping: { screen: Shopping },
+    Recipes: { screen: Recipes },
     Settings: { screen: Settings },
   },
   {

@@ -25,6 +25,7 @@ export default class Recipes extends React.Component {
                         marginTop: 40,
                     }}>
                         <Text style={{ color: theme.textColor }}>Recipes
+                        
                     </Text>
                     </Form>
                 </Content>
