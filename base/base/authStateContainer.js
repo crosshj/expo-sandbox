@@ -15,8 +15,8 @@ import { NavigationActions, DrawerActions } from 'react-navigation';
 // ALTERNATIVE: https://github.com/auth0-samples/react-native-embedded-login/blob/master/actions/auth/index.js
 
 
-let auth0ClientId = undefined;
-let auth0Domain = undefined;
+var auth0ClientId = undefined;
+var auth0Domain = undefined;
 
 function toQueryString(params) {
     return '?' + Object.entries(params)
@@ -52,7 +52,12 @@ class AuthStateContainer extends Container {
         const encodedToken = await AsyncStorage.getItem('userToken');
         if (!encodedToken) return;
 
-        const decodedToken = jwtDecoder(encodedToken);
+        var decodedToken = undefined;
+        try {
+            decodedToken = jwtDecoder(encodedToken);
+        } catch(e) {
+            decodedToken = {};
+        }
         const { name: username, picture, email } = decodedToken;
 
         this.setState(state => ({
@@ -74,12 +79,12 @@ class AuthStateContainer extends Container {
             scope: 'openid name email profile',
             redirect_uri,
         });
-        console.log({ authUrl });
+        //console.log({ authUrl });
         const result = await AuthSession.startAsync({
             authUrl,
         });
 
-        console.log({ result });
+        //console.log({ result });
         if (result.error || result.errorCode || result.type !== 'success') {
             Alert.alert('Error', result.error_description
                 || result.errorCode
@@ -92,10 +97,13 @@ class AuthStateContainer extends Container {
 
         // no need to await?
         AsyncStorage.setItem('userToken', encodedToken);
+        var decodedToken = undefined;
+        try {
+            decodedToken = jwtDecoder(encodedToken);
+        } catch(e) { /**/}
 
-        const decodedToken = jwtDecoder(encodedToken);
-        const { name: username, picture, email } = decodedToken;
-        console.log({ decodedToken });
+        const { name: username, picture, email } = decodedToken || {};
+        // console.log({ decodedToken });
         this.setState({ username, picture, email, token: decodedToken, authLoading: false });
         navigation.navigate('AppNavigator');
     }

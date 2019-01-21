@@ -7,9 +7,11 @@ import { Container, Title, Left, Icon, Right, Button, Body, Content, Text, Card,
 //import ListView from '../components/listview';
 import Header from '../components/header';
 
-import UserName from '../components/userName';
-import UserEmail from '../components/userEmail';
-import UserPicture from '../components/userPicture';
+import UserName from '../../base/userName';
+import UserEmail from '../../base/userEmail';
+import UserPicture from '../../base/userPicture';
+
+import Theme from '../theme';
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
@@ -34,11 +36,11 @@ export default class HomeScreen extends React.Component {
                     hideSearch={true}
                 />
                 <View style={styles.userInfoView}>
-                    <UserPicture size={250} />
+                    <UserPicture size={250} theme={Theme}/>
                 </View>
                 <View style={styles.userInfoView}>
-                    <UserName large bold />
-                    <UserEmail />
+                    <UserName large bold  theme={Theme}/>
+                    <UserEmail theme={Theme}/>
 
                     {/* TODO: make component for token */}
                     <Text style={{

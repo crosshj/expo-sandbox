@@ -7,15 +7,13 @@ import {
     Text,
 } from 'native-base';
 
-import theme from '../theme';
-
-const Username = ({ inverse, bold, large, style }) => {
+const Username = ({ inverse, bold, large, style, theme }) => {
     const styles = {
         ...{
             text: {
                 fontSize: large ? 20 : undefined,
                 fontWeight: bold ? 'bold' : undefined,
-                color: inverse ? theme.titleFontColor : theme.textColor
+                color: inverse ? theme.toolbarBtnTextColor : theme.textColor
             }
         },
         ...style
