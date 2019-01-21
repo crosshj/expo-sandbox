@@ -3,12 +3,14 @@ import { AsyncStorage, StyleSheet, Image, Platform, StatusBar, TouchableOpacity 
 import Expo, { Asset, AppLoading } from 'expo';
 
 import {
-  Spinner, Text, View, Content, Container, Header, Title, Button, Icon,
+  Spinner, Text, View, Content, Container, Title, Button, Icon,
   InputGroup, Input, ListItem, List, Radio, CheckBox, Thumbnail, Card, CardItem,
   H3, Left, Right, Body, Footer, FooterTab, Form, Item
 } from 'native-base';
 
 import appJson from '../../app.json';
+
+import Header from '../components/header';
 
 import theme from '../theme';
 
@@ -20,6 +22,11 @@ export default class Recipes extends React.Component {
     render() {
         return (
             <Container style={styles.container}>
+                <Header
+                    navigation={this.props.navigation}
+                    title={'Recipes'}
+                    hideSearch={true}
+                />
                 <Content style={styles.content}>
                     <Form style={{
                         marginTop: 40,
@@ -36,12 +43,7 @@ export default class Recipes extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
-        marginTop: 'auto',
-        backgroundColor: appJson.expo.splash.backgroundColor,
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        height: '100%',
+        flex: 1,
     },
     content: {
         flex: 3,

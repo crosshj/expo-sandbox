@@ -4,28 +4,30 @@ import { component as StyleWrapper } from './styleWrapper';
 import { component as StateWrapper } from './stateWrapper';
 import AuthStateContainer from './authStateContainer';
 
-import UserEmail from './userEmail';
-import UserName from './userName';
-import UserPicture from './userPicture';
-
 import { SplashScreen } from 'expo';
 
+import getNavigator from './navigator';
+
 const GetAppBase = ({
-	Theme, Navigator
+	screens = {}, options = {},
+	Loading, Logo, appJson, Theme
 }) => {
 	SplashScreen.hide();
+	const BaseNavigator = getNavigator({
+		screens, options, Loading, Logo, appJson, Theme
+	});
 
 	return () => (
 		<StateWrapper>
 			<StyleWrapper theme={Theme}>
-				<Navigator />
+				<BaseNavigator />
 			</StyleWrapper>
 		</StateWrapper>
 	);
 };
 
+
 export default GetAppBase;
 export {
-	AuthStateContainer,
-	UserEmail, UserName, UserPicture
+	AuthStateContainer
 };
