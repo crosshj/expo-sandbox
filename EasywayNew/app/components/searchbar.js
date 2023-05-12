@@ -1,50 +1,20 @@
-import { SearchBar } from 'react-native-elements'
-
-<SearchBar
-  onChangeText={someMethod}
-  onClear={someMethod}
-  placeholder='Type Here...' />
-
-<SearchBar
-  clearIcon={{ color: 'red' }}
-  searchIcon={false} // You could have passed `null` too
-  onChangeText={someMethod}
-  onClear={someMethod}
-  placeholder='Type Here...' />
-
-<SearchBar
-  round
-  searchIcon={{ size: 24 }}
-  onChangeText={someMethod}
-  onClear={someMethod}
-  placeholder='Type Here...' />
-
-<SearchBar
-  lightTheme
-  searchIcon={<CustomComponent />}
-  onChangeText={someMethod}
-  onClear={someMethod}
-  placeholder='Type Here...' />
-
-<SearchBar
-  lightTheme
-  onChangeText={someMethod}
-  onClear={someMethod}
-  placeholder='Type Here...' />
-
-<SearchBar
-  showLoading
-  platform="ios"
-  cancelButtonTitle="Cancel"
-  placeholder='Search' />
-
-<SearchBar
-  showLoading
-  platform="android"
-  placeholder='Search' />
-
-<SearchBar
-  showLoading
-  platform="android"
-  cancelIcon={{ type: 'font-awesome', name: 'chevron-left' }}
-  placeholder='Search' />
+import React, { Component } from 'react';
+import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
+export default class SearchBarExample extends Component {
+  render() {
+    return (
+      <Container>
+        <Header searchBar rounded>
+          <Item>
+            <Icon name="ios-search" />
+            <Input placeholder="Search" />
+            <Icon name="ios-people" />
+          </Item>
+          <Button transparent>
+            <Text>Search</Text>
+          </Button>
+        </Header>
+      </Container>
+    );
+  }
+}
